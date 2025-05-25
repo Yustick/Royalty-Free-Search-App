@@ -1,0 +1,94 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+env/
+
+# Pipenv
+Pipfile.lock
+
+# dotenv environment variables file
+.env
+
+# Django settings
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Media and static files
+media/
+staticfiles/
+
+# Pytest cache
+.pytest_cache/
+.cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# Django migrations (uncomment if you want to ignore all migrations)
+# */migrations/
+# !*/migrations/__init__.py
+
+# Sphinx documentation
+docs/_build/
+
+# Rider
+.idea/
+*.sln
+*.csproj
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# Celery beat schedule file
+celerybeat-schedule
+
+
+# Editor backups
+*~
+*.swp
+
+# Secret key file
+secret_key.txt
