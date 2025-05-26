@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    'search',
-    'processing',
+    'apps.core',
+    'apps.search',
+    'apps.processing',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +57,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [
+        #     BASE_DIR / 'templates',  # Загальні шаблони для проекту --- Поглянь чи воно буде треба
+        # ],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -118,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
