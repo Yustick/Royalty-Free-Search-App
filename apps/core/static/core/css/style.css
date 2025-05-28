@@ -1,0 +1,95 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+.nav-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.nav-links a {
+  color: white;
+  margin: 0 20px;
+  text-decoration: none;
+  font-size: 18px;
+}
+.nav-links a:hover {
+  text-decoration: underline;
+}
+.search-section {
+  background-image: url("https://pixabay.com/get/58e3d34a4f56b108f5d08460962d367d1c3a1dc9e8b3b5cfe1f1c6faee9aeb6c.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  text-align: center;
+  color: white;
+}
+.search-section h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.search-section form {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+}
+.search-section input[type="text"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+.search-section button {
+  padding: 10px 20px;
+  background-color: #f0ad4e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+.categories {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+.category-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 15px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px;
+}
+.category-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.category-card h3 {
+  margin-top: 15px;
+  font-size: 20px;
+  color: #333;
+}
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}

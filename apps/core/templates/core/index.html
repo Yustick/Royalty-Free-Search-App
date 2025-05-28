@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Royalty-Free Search App</title>
+    <link
+      href="{% static 'core/css/style.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="icon"
+      href="{% static 'core/favicon.ico' %}"
+      type="image/x-icon"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>Royalty-Free Search App</h1>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Categories</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </header>
+
+    <section class="search-section">
+      <h2>Search High-Quality, Free Images</h2>
+      <form>
+        <input
+          type="text"
+          placeholder="Search for images, videos, vectors..."
+        />
+        <button type="submit">Search</button>
+      </form>
+    </section>
+
+    <section class="categories">
+      <div class="category-card">
+        <img
+          src="https://pixabay.com/get/54e3d5444c56ab14f1d6e5d8cc3a3e68e25aebf5e36c204c5e3b2b0c93ee7d7e_640.jpg"
+          alt="Nature"
+        />
+        <h3>Nature</h3>
+      </div>
+      <div class="category-card">
+        <img
+          src="https://pixabay.com/get/54e3d54a4b5ab10f1d6e5d8cc3a3e68e25aebf5e36c204c5e3b2b0c93ee7d7e_640.jpg"
+          alt="Technology"
+        />
+        <h3>Technology</h3>
+      </div>
+      <div class="category-card">
+        <img
+          src="https://pixabay.com/get/56e3d54a4d5ab10f1d6e5d8cc3a3e68e25aebf5e36c204c5e3b2b0c93ee7d7e_640.jpg"
+          alt="Business"
+        />
+        <h3>Business</h3>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Royalty-Free Search App. All Rights Reserved.</p>
+      <p>
+        Follow us on <a href="#">Facebook</a>, <a href="#">Twitter</a>,
+        <a href="#">Instagram</a>.
+      </p>
+    </footer>
+  </body>
+</html>
