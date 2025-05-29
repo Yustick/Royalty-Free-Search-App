@@ -1,9 +1,26 @@
+/* Основні налаштування */
+html,
 body {
-  font-family: Arial, sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
   background-color: #f0f0f0;
 }
+
+/* Sticky layout */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
 header {
   background-color: #333;
   color: white;
@@ -28,8 +45,9 @@ header h1 {
 .nav-links a:hover {
   text-decoration: underline;
 }
+
+/* Search section */
 .search-section {
-  background-image: url("https://pixabay.com/get/58e3d34a4f56b108f5d08460962d367d1c3a1dc9e8b3b5cfe1f1c6faee9aeb6c.jpg");
   background-size: cover;
   background-position: center;
   padding: 100px 0;
@@ -63,6 +81,13 @@ header h1 {
   font-size: 16px;
   cursor: pointer;
 }
+
+/* Main (майбутній контент) */
+main {
+  flex-grow: 1;
+}
+
+/* Галерея */
 .categories {
   display: flex;
   justify-content: center;
@@ -87,29 +112,29 @@ header h1 {
   font-size: 20px;
   color: #333;
 }
-footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
 
 .image-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 10px;
 }
-
 .image-container {
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .image-item {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
   border-radius: 8px;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }

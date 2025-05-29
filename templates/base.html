@@ -1,14 +1,10 @@
-{% comment %} Зроби базову сторінку, а вже на її основі інші, бо вигляд має
-бути досить схожим. Також зроби загальну папку або тільки її або поряд із
-індивідуальними. 
-Серч об'єднай із кором, а от процесінг лиши, також можливо додай про аккаунт {% endcomment %}
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title_of_app}}</title>
+    <title>{{ title_of_app }}</title>
     <link
       href="{% static 'css/style.css' %}"
       rel="stylesheet"
@@ -16,39 +12,48 @@
     />
     <link
       rel="icon"
-      href="{% static 'favicon.ico' %}"
+      href="{% static 'images/favicon.ico' %}"
       type="image/x-icon"
     />
   </head>
 
   <body>
-    <header>
-      <h1>{{ title_of_app }}</h1>
-      <div class="nav-links">
-        {% comment %} <a href={% url 'home' %}>Home</a> {% endcomment %}
-        <a href={% url 'categories' %}>Categories</a>
-        <a href={% url 'about' %}>About</a>
-        <a href={% url 'contact' %}>Contact</a>
-      </div>
-    </header>
+    <div class="wrapper">
+      <header>
+        <h1>{{ title_of_app }}</h1>
+        <div class="nav-links">
+          <a href="{% url 'categories' %}">Categories</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'contact' %}">Contact</a>
+        </div>
+      </header>
 
-    <section class="search-section" style="background-image: url('{{ background_url }}'); background-size: cover; background-position: center;">
-      <h2>Search High-Quality, Free Images</h2>
-      <form method="GET" action="{% url 'search_view' %}">
-        <input
-          type="text"
-          name="search_query"
-          placeholder="Search for images, videos, vectors..."
-          value="{{ search_query }}"
-        />
-        <button type="submit">Search</button>
-      </form>
-    </section>
+      <section
+        class="search-section"
+        style="background-image: url('{{ background_url }}'); background-size: cover; background-position: center;"
+      >
+        <h2>Search High-Quality, Free Images</h2>
+        <form method="GET" action="{% url 'search_view' %}">
+          <input
+            type="text"
+            name="search_query"
+            placeholder="Search for images, videos, vectors..."
+            value="{{ search_query }}"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <main>{% block content %}{% endblock %}</main>
+    </div>
 
     <footer>
-      <p>&copy; 2025 Royalty-Free Search App. All Rights Reserved.</p>
+      <p>2025 Royalty-Free Search App</p>
       <p>
-        Follow me on <a href="https://github.com/Yustick">GitHub</a>, <a href="https://github.com/Yustick/Royalty-Free-Search-App">Link to this work on GitHub</a>
+        Follow me on <a href="https://github.com/Yustick">GitHub</a>,
+        <a href="https://github.com/Yustick/Royalty-Free-Search-App"
+          >Link to this work on GitHub</a
+        >
       </p>
     </footer>
   </body>
