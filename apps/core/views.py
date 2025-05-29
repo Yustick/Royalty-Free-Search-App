@@ -219,13 +219,16 @@ def base_view(request):
     ]
     random_category = random.choice(categories)
 
-    image_urls = fetch_images(random_category)
+    image_urls = search_images(
+        'pixabay', random_category
+    )  # або random.choice(['pixabay', 'pexels', 'unsplash', 'freepik'])
+    background_url = image_urls[0] if isinstance(image_urls, list) else None
 
-    return render(
-        request,
-        'core/index.html',
-        {'image_urls': image_urls, 'random_category': random_category},
-    )
+    context = {
+        'title_of_app': 'Royalty-Free Search App',
+        'background_url': background_url,
+    }
+    return render(request, 'base.html', context)
 
 
 def categories_view(request):
@@ -254,19 +257,31 @@ def contact_view(request):
 
 
 def search_view(request):
-    search_query = request.GET.get('search_query', '')
-    image_urls = []
+    # search_query = request.GET.get('search_query', '')
+    # image_urls = []
 
-    if search_query:
-        # Вибір випадкового API для пошуку
-        services = ['unsplash', 'pexels', 'pixabay', 'freepik']
-        random_service = random.choice(services)
+    # if search_query:
+    # Вибір випадкового API для пошуку
+    # services = ['unsplash', 'pexels', 'pixabay', 'freepik']
+    #     services = ['pexels', 'pixabay', 'freepik']
+    #     random_service = random.choice(services)
 
-        image_urls = fetch_images(search_query, service=random_service)
+    #     image_urls = fetch_images(search_query, service=random_service)
 
-    return render(
-        request,
-        # 'search_results.html',
-        'core/index.html',
-        {'search_query': search_query, 'image_urls': image_urls},
-    )
+    # return render(
+    #     request,
+    #     # 'search_results.html',
+    #     'base.html',
+    #     {'search_query': search_query, 'image_urls': image_urls},
+    # )
+
+    image_urls = search_images(
+        'pixabay'
+    )  # або random.choice(['pixabay', 'pexels', 'unsplash', 'freepik'])
+    background_url = image_urls[0] if isinstance(image_urls, list) else None
+
+    context = {
+        'title_of_app': 'Royalty-Free Search App',
+        'background_url': background_url,
+    }
+    return render(request, 'core/home.html', context)
