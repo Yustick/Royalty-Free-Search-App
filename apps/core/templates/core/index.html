@@ -1,3 +1,7 @@
+{% comment %} Зроби базову сторінку, а вже на її основі інші, бо вигляд має
+бути досить схожим. Також зроби загальну папку або тільки її або поряд із
+індивідуальними. 
+Серч об'єднай із кором, а от процесінг лиши, також можливо додай про аккаунт {% endcomment %}
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -21,53 +25,47 @@
     <header>
       <h1>Royalty-Free Search App</h1>
       <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Categories</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href={% url 'home' %}>Home</a>
+        <a href={% url 'categories' %}>Categories</a>
+        <a href={% url 'about' %}>About</a>
+        <a href={% url 'contact' %}>Contact</a>
       </div>
     </header>
 
     <section class="search-section">
       <h2>Search High-Quality, Free Images</h2>
-      <form>
+      <form method="GET" action="{% url 'search_view' %}">
         <input
           type="text"
+          name="search_query"
           placeholder="Search for images, videos, vectors..."
+          value="{{ search_query }}"
         />
         <button type="submit">Search</button>
       </form>
-    </section>
 
-    <section class="categories">
-      <div class="category-card">
-        <img
-          src="https://pixabay.com/get/54e3d5444c56ab14f1d6e5d8cc3a3e68e25aebf5e36c204c5e3b2b0c93ee7d7e_640.jpg"
-          alt="Nature"
-        />
-        <h3>Nature</h3>
-      </div>
-      <div class="category-card">
-        <img
-          src="https://pixabay.com/get/54e3d54a4b5ab10f1d6e5d8cc3a3e68e25aebf5e36c204c5e3b2b0c93ee7d7e_640.jpg"
-          alt="Technology"
-        />
-        <h3>Technology</h3>
-      </div>
-      <div class="category-card">
-        <img
-          src="https://pixabay.com/get/56e3d54a4d5ab10f1d6e5d8cc3a3e68e25aebf5e36c204c5e3b2b0c93ee7d7e_640.jpg"
-          alt="Business"
-        />
-        <h3>Business</h3>
-      </div>
+      {% if search_query %}
+        <h3>Results for "{{ search_query }}":</h3>
+        <div class="image-gallery">
+          {% if image_urls %}
+            <div class="images">
+              {% for url in image_urls %}
+                <div class="image-container">
+                  <img src="{{ url }}" alt="Search result" class="image-item" />
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p>No images found for "{{ search_query }}".</p>
+          {% endif %}
+        </div>
+      {% endif %}
     </section>
 
     <footer>
       <p>&copy; 2025 Royalty-Free Search App. All Rights Reserved.</p>
       <p>
-        Follow us on <a href="#">Facebook</a>, <a href="#">Twitter</a>,
-        <a href="#">Instagram</a>.
+        Follow me on <a href="https://github.com/Yustick">GitHub</a>, <a href="https://github.com/Yustick/Royalty-Free-Search-App">Посилання на цю роботу</a>
       </p>
     </footer>
   </body>

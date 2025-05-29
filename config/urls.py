@@ -21,5 +21,11 @@ from apps.core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('RoyaltyFreeSearchApp/', views.base_view),
+    # тут можна рандомні набір запитів, який повертатиме з два десятки картинок,
+    # що відображатимуться на головній перед запитом АБО краще щоб це були категорії
+    path('RoyaltyFreeSearchApp/', views.base_view, name='home'),
+    path('RoyaltyFreeSearchApp/categories', views.categories_view, name='categories'),
+    path('RoyaltyFreeSearchApp/about', views.about_view, name='about'),
+    path('RoyaltyFreeSearchApp/contact', views.contact_view, name='contact'),
+    path('RoyaltyFreeSearchApp/search', views.search_view, name='search_view'),
 ]
