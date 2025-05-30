@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block search_section %}
+<section
+  class="search-section"
+  style="background-image: url('{{ background_url }}');"
+>
+  <div class="search-inner">
+    <h2>Search High-Quality, Free Images</h2>
+    <form method="GET" action="{% url 'search_view' %}">
+      <input
+        type="text"
+        name="search_query"
+        placeholder="Search for images, videos, vectors..."
+        value="{{ search_query }}"
+      />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+</section>
+{% endblock %} {% block content %}
+<!-- Main content for this page goes here -->
+{% endblock %}

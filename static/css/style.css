@@ -20,7 +20,6 @@ body {
   flex-direction: column;
 }
 
-/* Header */
 header {
   background-color: #333;
   color: white;
@@ -46,25 +45,38 @@ header h1 {
   text-decoration: underline;
 }
 
+/* Main розтягується */
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Search section */
 .search-section {
+  flex-grow: 1;
   background-size: cover;
   background-position: center;
-  padding: 100px 0;
   text-align: center;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.search-section h2 {
+.search-inner {
+  padding: 120px 0;
+}
+.search-inner h2 {
   font-size: 40px;
   margin-bottom: 20px;
 }
-.search-section form {
+.search-inner form {
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 5px;
 }
-.search-section input[type="text"] {
+.search-inner input[type="text"] {
   padding: 10px;
   width: 300px;
   border: 1px solid #ccc;
@@ -72,7 +84,7 @@ header h1 {
   margin-right: 10px;
   font-size: 16px;
 }
-.search-section button {
+.search-inner button {
   padding: 10px 20px;
   background-color: #f0ad4e;
   border: none;
@@ -80,11 +92,6 @@ header h1 {
   color: white;
   font-size: 16px;
   cursor: pointer;
-}
-
-/* Main (майбутній контент) */
-main {
-  flex-grow: 1;
 }
 
 /* Галерея */
@@ -113,22 +120,53 @@ main {
   color: #333;
 }
 
+/* Стилі для галереї зображень */
 .image-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(6, 1fr); /* 6 стовпців */
+  grid-gap: 16px;
+  padding: 20px;
 }
+
 .image-container {
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .image-item {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 200px; /* Висота зображення */
   object-fit: cover;
   border-radius: 8px;
+}
+
+/* Пагінація */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pagination .page-links {
+  display: inline-block;
+}
+
+.pagination a {
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #f0ad4e;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.pagination a:hover {
+  background-color: #e68a00;
+}
+
+.pagination span {
+  margin: 0 5px;
 }
 
 /* Footer */

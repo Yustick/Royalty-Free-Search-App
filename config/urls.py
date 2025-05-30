@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # тут можна рандомні набір запитів, який повертатиме з два десятки картинок,
     # що відображатимуться на головній перед запитом АБО краще щоб це були категорії
-    path('RoyaltyFreeSearchApp/', views.base_view, name='base'),
+    path('RoyaltyFreeSearchApp/', views.home_view, name='home'),
     path('RoyaltyFreeSearchApp/categories', views.categories_view, name='categories'),
     path('RoyaltyFreeSearchApp/about', views.about_view, name='about'),
     path('RoyaltyFreeSearchApp/contact', views.contact_view, name='contact'),

@@ -22,29 +22,20 @@
       <header>
         <h1>{{ title_of_app }}</h1>
         <div class="nav-links">
+          <a href="{% url 'home' %}">Home</a>
           <a href="{% url 'categories' %}">Categories</a>
           <a href="{% url 'about' %}">About</a>
           <a href="{% url 'contact' %}">Contact</a>
         </div>
       </header>
 
-      <section
-        class="search-section"
-        style="background-image: url('{{ background_url }}'); background-size: cover; background-position: center;"
-      >
-        <h2>Search High-Quality, Free Images</h2>
-        <form method="GET" action="{% url 'search_view' %}">
-          <input
-            type="text"
-            name="search_query"
-            placeholder="Search for images, videos, vectors..."
-            value="{{ search_query }}"
-          />
-          <button type="submit">Search</button>
-        </form>
-      </section>
-
-      <main>{% block content %}{% endblock %}</main>
+      <main>
+        {% block search_section %}
+        <!-- Default search section can go here if needed -->
+        {% endblock %} {% block content %}
+        <!-- Main content will be injected here -->
+        {% endblock %}
+      </main>
     </div>
 
     <footer>

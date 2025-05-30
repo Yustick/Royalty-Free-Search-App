@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Галерея зображень -->
+<div class="image-gallery">
+  {% for image in page_obj %}
+  <div class="image-container">
+    <img src="{{ image }}" alt="{{ image }}" class="image-item" />
+  </div>
+  {% empty %}
+  <p>No images found for your search.</p>
+  {% endfor %}
+</div>
+
+<!-- Пагінація -->
+<div class="pagination">
+  <span class="page-links">
+    {% if page_obj.has_previous %}
+    <a href="?page=1&search_query={{ search_query }}">First</a>
+    <a
+      href="?page={{ page_obj.previous_page_number }}&search_query={{ search_query }}"
+      >Previous</a
+    >
+    {% endif %}
+
+    <span
+      >Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span
+    >
+
+    {% if page_obj.has_next %}
+    <a
+      href="?page={{ page_obj.next_page_number }}&search_query={{ search_query }}"
+      >Next</a
+    >
+    <a
+      href="?page={{ page_obj.paginator.num_pages }}&search_query={{ search_query }}"
+      >Last</a
+    >
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

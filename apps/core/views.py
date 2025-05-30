@@ -1,130 +1,10 @@
-from django.shortcuts import render
-from scripts.get_image import search_images
-
-# ЗРОБИ ЯКИЙСЬ ВИБІР МІЖ АПІШКАМИ
-
-# Create your views here.
-
-
-# def base_view(request):
-#     return render(
-#         request,
-#         'core/index.html',
-#     )
-
-
-# def categories_view(request):
-#     return render(
-#         request,
-#         'core/categories.html',
-#     )
-
-
-# def about_view(request):
-#     return render(
-#         request,
-#         'core/about.html',
-#     )
-
-
-# def contact_view(request):
-#     return render(
-#         request,
-#         'core/contact.html',
-#     )
-
-
-# def search_view(request):
-#     image_url = None
-#     search_query = None
-
-#     if request.method == "GET" and "search_query" in request.GET:
-#         search_query = request.GET["search_query"]
-#         image_url = search_images('pixabay', search_query)
-
-#     return render(
-#         request,
-#         'core/index.html',
-#         {'image_url': image_url, 'search_query': search_query},
-#     )
-
-# import os
-# import random
-# import requests
-# from dotenv import load_dotenv
-# from django.shortcuts import render
-
-# # Завантаження змінних середовища з .env
-# load_dotenv()
-
-# # Отримуємо API-ключі для різних сервісів
-# API_KEYS = {
-#     'pixabay': os.getenv('PIXABAY_API_KEY'),
-#     'pexels': os.getenv('PEXELS_API_KEY'),
-#     'unsplash': os.getenv('UNSPLASH_ACCESS_KEY_API'),
-#     'freepik': os.getenv('FREEPIK_API_KEY'),
-# }
-
-# # Перевірка наявності ключів
-# for key, value in API_KEYS.items():
-#     if not value:
-#         print(f"API-ключ для {key} не знайдено! Переконайтеся, що ви додали його в .env файл.")
-
-# def fetch_images(query, service='unsplash'):
-#     image_urls = []
-
-#     if service == 'unsplash':
-#         url = f"https://api.unsplash.com/photos/random?query={query}&client_id={API_KEYS['unsplash']}"
-#         response = requests.get(url)
-#         if response.status_code == 200:
-#             data = response.json()
-#             image_urls = [image['urls']['regular'] for image in data]
-
-#     elif service == 'pexels':
-#         url = f"https://api.pexels.com/v1/search?query={query}&per_page=20"
-#         headers = {"Authorization": API_KEYS['pexels']}
-#         response = requests.get(url, headers=headers)
-#         if response.status_code == 200:
-#             data = response.json()
-#             image_urls = [photo['src']['original'] for photo in data['photos']]
-
-#     elif service == 'pixabay':
-#         url = f"https://pixabay.com/api/?key={API_KEYS['pixabay']}&q={query}&image_type=photo"
-#         response = requests.get(url)
-#         if response.status_code == 200:
-#             data = response.json()
-#             image_urls = [hit['largeImageURL'] for hit in data['hits']]
-
-#     elif service == 'freepik':
-#         url = f"https://api.freepik.com/v2/search/?q={query}&api_key={API_KEYS['freepik']}"
-#         response = requests.get(url)
-#         if response.status_code == 200:
-#             data = response.json()
-#             image_urls = [item['image_url'] for item in data['data']]
-
-#     return image_urls[:20]  # Повертати не більше 20 зображень
-
-# def search_view(request):
-#     search_query = request.GET.get('search_query', '')
-#     image_urls = []
-
-#     if search_query:
-#         # Вибір випадкового API для пошуку
-#         services = ['unsplash', 'pexels', 'pixabay', 'freepik']
-#         random_service = random.choice(services)
-
-#         image_urls = fetch_images(search_query, service=random_service)
-
-#     return render(request, 'search_results.html', {
-#         'search_query': search_query,
-#         'image_urls': image_urls
-#     })
-# _______________________________________________
 import os
 import random
 import requests
 from dotenv import load_dotenv
 from django.shortcuts import render
+from scripts.get_image import search_images
+from django.core.paginator import Paginator
 
 # Завантаження змінних середовища з .env
 load_dotenv()
@@ -204,7 +84,7 @@ def fetch_images(query, service='pixabay'):
     return image_urls[:20]  # Повертати не більше 20 зображень
 
 
-def base_view(request):
+def home_view(request):
     # Створимо випадкові запити для категорій
     categories = [
         'nature',
@@ -228,10 +108,15 @@ def base_view(request):
         'title_of_app': 'Royalty-Free Search App',
         'background_url': background_url,
     }
-    return render(request, 'base.html', context)
+    return render(request, 'core/home.html', context)
 
 
 def categories_view(request):
+    context = {
+        'title_of_app': 'Royalty-Free Search App',
+        'background_url': '',
+    }
+
     # Ви можете повернути список категорій для вибору
     categories = [
         'nature',
@@ -245,43 +130,43 @@ def categories_view(request):
         'fashion',
     ]
 
-    return render(request, 'categories.html', {'categories': categories})
+    return render(request, 'core/categories.html', context)
 
 
 def about_view(request):
-    return render(request, 'about.html')
+    context = {
+        'title_of_app': 'Royalty-Free Search App',
+        'background_url': '',
+    }
+    return render(request, 'core/about.html', context)
 
 
 def contact_view(request):
-    return render(request, 'contact.html')
+    context = {
+        'title_of_app': 'Royalty-Free Search App',
+        'background_url': '',
+    }
+    return render(request, 'core/contact.html', context)
 
 
 def search_view(request):
-    # search_query = request.GET.get('search_query', '')
-    # image_urls = []
+    search_query = request.GET.get('search_query', '')
 
-    # if search_query:
-    # Вибір випадкового API для пошуку
-    # services = ['unsplash', 'pexels', 'pixabay', 'freepik']
-    #     services = ['pexels', 'pixabay', 'freepik']
-    #     random_service = random.choice(services)
+    if search_query:
+        # Пошук зображень за допомогою вибраного сервісу
+        image_urls = fetch_images(search_query, service='pixabay')
+    else:
+        image_urls = []  # Повертаємо порожній список, якщо запит порожній
 
-    #     image_urls = fetch_images(search_query, service=random_service)
-
-    # return render(
-    #     request,
-    #     # 'search_results.html',
-    #     'base.html',
-    #     {'search_query': search_query, 'image_urls': image_urls},
-    # )
-
-    image_urls = search_images(
-        'pixabay'
-    )  # або random.choice(['pixabay', 'pexels', 'unsplash', 'freepik'])
-    background_url = image_urls[0] if isinstance(image_urls, list) else None
+    # Пагінація: по 18 зображень на сторінку (3 ряди по 6 стовпчиків)
+    paginator = Paginator(image_urls, 18)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'title_of_app': 'Royalty-Free Search App',
-        'background_url': background_url,
+        'search_query': search_query,
+        'page_obj': page_obj,
     }
-    return render(request, 'core/home.html', context)
+
+    return render(request, 'search/search.html', context)
