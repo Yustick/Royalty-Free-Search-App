@@ -112,12 +112,44 @@ def home_view(request):
 
 
 def categories_view(request):
+    # Список категорій для вибору
+    categories = [
+        'Nature',
+        'Technology',
+        'Business',
+        'Food',
+        'Animals',
+        'Sports',
+        'Landscape',
+        'Travel',
+        'Clothes',
+        'Games',
+    ]
+
+    # Отримуємо зображення для кожної категорії
+    category_data = []
+    for category in categories:
+        # Викликаємо функцію fetch_images для кожної категорії
+        image_urls = fetch_images(category, service='pixabay')
+        category_data.append(
+            {
+                'name': category,
+                'image_url': (
+                    image_urls[0] if image_urls else ''
+                ),  # Перше зображення або порожній рядок, якщо зображення не знайдено
+            }
+        )
+
     context = {
         'title_of_app': 'Royalty-Free Search App',
         'background_url': '',
+        'categories': category_data,  # Передаємо дані категорій до шаблону
     }
 
-    # Ви можете повернути список категорій для вибору
+    return render(request, 'core/categories.html', context)
+
+
+def about_view(request):
     categories = [
         'nature',
         'technology',
@@ -129,24 +161,44 @@ def categories_view(request):
         'travel',
         'fashion',
     ]
+    random_category = random.choice(categories)
 
-    return render(request, 'core/categories.html', context)
+    image_urls = search_images(
+        'pixabay', random_category
+    )  # або random.choice(['pixabay', 'pexels', 'unsplash', 'freepik'])
+    background_url = image_urls[0] if isinstance(image_urls, list) else None
 
-
-def about_view(request):
     context = {
         'title_of_app': 'Royalty-Free Search App',
-        'background_url': '',
+        'background_url': background_url,
     }
     return render(request, 'core/about.html', context)
 
 
-def contact_view(request):
+def gallery_view(request):
+    categories = [
+        'nature',
+        'technology',
+        'business',
+        'food',
+        'animals',
+        'sports',
+        'landscape',
+        'travel',
+        'fashion',
+    ]
+    random_category = random.choice(categories)
+
+    image_urls = search_images(
+        'pixabay', random_category
+    )  # або random.choice(['pixabay', 'pexels', 'unsplash', 'freepik'])
+    background_url = image_urls[0] if isinstance(image_urls, list) else None
+
     context = {
         'title_of_app': 'Royalty-Free Search App',
-        'background_url': '',
+        'background_url': background_url,
     }
-    return render(request, 'core/contact.html', context)
+    return render(request, 'core/gallery.html', context)
 
 
 def search_view(request):

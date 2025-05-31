@@ -94,30 +94,70 @@ main {
   cursor: pointer;
 }
 
-/* Галерея */
-.categories {
+h2.categories-header {
   display: flex;
-  justify-content: center;
-  margin: 50px 0;
+  justify-content: center; /* Центрування по горизонталі */
+  align-items: center; /* Центрування по вертикалі */
+  text-align: center; /* Текст по центру */
+  font-size: 2em;
+  font-weight: bold;
+  color: #ffcc00; /* Жовтий колір для контрасту */
+  text-transform: uppercase; /* Великі літери */
+  letter-spacing: 1px; /* Міжлітерний інтервал */
+  /* margin-bottom: 1.5em; Відступ знизу */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Тінь для об'ємності */
+  padding: 1em 0; /* Відступи зверху та знизу */
+  background: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний фон */
+  border-radius: 20px; /* Округлення кутів */
 }
+
+/* Секція категорій */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 стовпці */
+  gap: 2em; /* Відступи між картками */
+  padding: 1em 1em;
+}
+
 .category-card {
-  background-color: white;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  padding: 20px;
-  margin: 0 15px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 200px;
+  color: white;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  margin-top: auto; /* Розташовує кнопку внизу */
 }
-.category-card img {
-  max-width: 100%;
+
+.category-card:hover {
+  transform: scale(1.05); /* Легке збільшення при наведенні */
+}
+
+.category-image {
+  width: 100%;
   height: auto;
-  border-radius: 5px;
+  object-fit: cover; /* Щоб зображення виглядало гарно */
 }
+
 .category-card h3 {
-  margin-top: 15px;
-  font-size: 20px;
-  color: #333;
+  padding: 1em;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.category-link {
+  display: block;
+  padding: 0.8em;
+  background-color: #ffcc00;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.category-link:hover {
+  background-color: #ff9900;
 }
 
 /* Стилі для галереї зображень */
@@ -175,4 +215,44 @@ footer {
   color: white;
   padding: 20px;
   text-align: center;
+}
+
+/* Стилі для about.html */
+.site-info {
+  background-color: rgba(255, 255, 255, 0.9); /* Трошки прозорий фон */
+  padding: 1.5em; /* Збільшено відступи для комфортнішого вигляду */
+  max-width: 900px;
+  margin: auto; /* Відступ знизу та зверху */
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Легке тінювання */
+}
+
+.site-info h2 {
+  text-align: center;
+  font-size: 2em; /* Збільшено розмір шрифта для кращої видимості */
+  color: #333;
+  margin-bottom: 1em; /* Відступ після заголовка */
+  font-weight: 600; /* Жирний шрифт */
+}
+
+.site-info ul {
+  font-size: 1.2em;
+  line-height: 1.6; /* Більший міжрядковий інтервал для кращої читабельності */
+  color: #444;
+  margin: 0;
+  padding-left: 1.5em; /* Лівий відступ для основного списку */
+}
+
+.site-info ul ul {
+  margin-top: 1em; /* Збільшений відступ для підсписків */
+  list-style-type: square; /* Квадратні маркери для підсписків */
+  margin-left: 2em; /* Додатковий лівий відступ для підсписків */
+}
+
+.site-info ul li {
+  margin-bottom: 0.5em; /* Зменшено відступи між пунктами списку */
+}
+
+.site-info ul li:last-child {
+  margin-bottom: 0; /* Знімаємо відступ для останнього елемента */
 }

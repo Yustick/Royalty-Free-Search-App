@@ -1,5 +1,26 @@
 {% extends 'base.html' %} {% block search_section %}
-<p>Категорії для вибору(або ж не вийо і най буде це тільки на головній)!!!</p>
+<!-- Заголовок та пояснення -->
+<h2 class="categories-header">Категорії для вибору:</h2>
 {% endblock %} {% block content %}
-<!-- Main content for this page goes here -->
+<!-- Секція категорій -->
+<div class="categories">
+  {% for category in categories %}
+  <div class="category-card">
+    <!-- Зображення категорії -->
+    <img
+      src="{{ category.image_url }}"
+      alt="{{ category.name }}"
+      class="category-image"
+    />
+    <h3>{{ category.name }}</h3>
+    <!-- Назва категорії -->
+    <a
+      href="{% url 'search_view' %}?search_query={{ category.name }}"
+      class="category-link"
+      >Переглянути</a
+    >
+    <!-- Кнопка для перегляду -->
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

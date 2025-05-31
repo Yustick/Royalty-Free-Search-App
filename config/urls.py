@@ -26,6 +26,6 @@ urlpatterns = [
     path('RoyaltyFreeSearchApp/', views.home_view, name='home'),
     path('RoyaltyFreeSearchApp/categories', views.categories_view, name='categories'),
     path('RoyaltyFreeSearchApp/about', views.about_view, name='about'),
-    path('RoyaltyFreeSearchApp/contact', views.contact_view, name='contact'),
+    path('RoyaltyFreeSearchApp/gallery', views.gallery_view, name='gallery'),
     path('RoyaltyFreeSearchApp/search', views.search_view, name='search_view'),
 ]
