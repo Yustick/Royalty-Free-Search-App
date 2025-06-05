@@ -27,11 +27,20 @@
           <a href="{% url 'about' %}">About</a>
           <a href="{% url 'gallery' %}">Gallery</a>
         </div>
+        <div class="account-buttons">
+          <a href="{% url 'login' %}" title="Account">
+            <img
+              src="{% static 'images/profile.png' %}"
+              alt="Account"
+              width="24"
+            />
+          </a>
+        </div>
       </header>
 
       <main>
         {% block search_section %}
-        <!-- Default search section can go here if needed -->
+        <!-- Search section will be injected here if needed -->
         {% endblock %} {% block content %}
         <!-- Main content will be injected here -->
         {% endblock %}

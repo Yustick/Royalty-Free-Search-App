@@ -17,15 +17,22 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from apps.core import views
+from apps.core import views as core_views
+from apps.accounts import views as accounts_views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # тут можна рандомні набір запитів, який повертатиме з два десятки картинок,
     # що відображатимуться на головній перед запитом АБО краще щоб це були категорії
-    path('RoyaltyFreeSearchApp/', views.home_view, name='home'),
-    path('RoyaltyFreeSearchApp/categories', views.categories_view, name='categories'),
-    path('RoyaltyFreeSearchApp/about', views.about_view, name='about'),
-    path('RoyaltyFreeSearchApp/gallery', views.gallery_view, name='gallery'),
-    path('RoyaltyFreeSearchApp/search', views.search_view, name='search_view'),
+    path('RoyaltyFreeSearchApp/', core_views.home_view, name='home'),
+    path(
+        'RoyaltyFreeSearchApp/categories', core_views.categories_view, name='categories'
+    ),
+    path('RoyaltyFreeSearchApp/about', core_views.about_view, name='about'),
+    path('RoyaltyFreeSearchApp/gallery', core_views.gallery_view, name='gallery'),
+    path('RoyaltyFreeSearchApp/search', core_views.search_view, name='search_view'),
+    path('register/', accounts_views.register, name='register'),
+    path('login/', accounts_views.user_login, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 ]

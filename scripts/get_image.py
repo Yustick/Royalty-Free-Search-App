@@ -4,6 +4,9 @@ import random
 from dotenv import load_dotenv
 
 # ВИКОРИСТАЙ ЦЕЙ ФАЙЛ, БО ВІН ОДИН І СКОРОЧУЄ К-СТЬ КОДУ + Є ВАРІК РАНДОМНИХ ЗОБРАЖЕНЬ
+# Можливо тут варто розділити кожне АПІ на свій файл, а в цьому їх викликати?
+
+# ДОДАЙ функцію з вибору категорії і використовуй у інших, щоб не писати знову і знову те саме get_random_query(): - ось основа
 
 # Завантаження змінних середовища з .env
 load_dotenv()
@@ -130,10 +133,3 @@ def search_images_freepik(search_query):
             return "Зображення не знайдено за вашим запитом."
     else:
         return f"Помилка запиту до API: {response.status_code}"
-
-
-# Приклад виклику функції
-if __name__ == "__main__":
-    api_name = "pixabay"  # Змініть на 'pexels', 'unsplash' або 'freepik' для використання інших API
-    image_urls = search_images(api_name)
-    print(f"Зображення за запитом: {image_urls}")

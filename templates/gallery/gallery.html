@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Моя галерея збережених зображень</h2>
+
+  {% if saved_images %}
+  <div class="row">
+    {% for image in saved_images %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <img
+          src="{{ image.local_path.url }}"
+          class="card-img-top"
+          alt="Зображення {{ forloop.counter }}"
+        />
+        <div class="card-body">
+          <p class="card-text"><strong>Назва:</strong> {{ image.name }}</p>
+          <form action="{% url 'edit_image_redirect' image.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary w-100">
+              Редагувати
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>У вас ще немає збережених зображень.</p>
+  {% endif %}
+</div>
+{% endblock %}

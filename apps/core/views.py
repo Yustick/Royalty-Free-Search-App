@@ -6,6 +6,8 @@ from django.shortcuts import render
 from scripts.get_image import search_images
 from django.core.paginator import Paginator
 
+# ДОДАЙ функцію з вибору категорії і використовуй у інших, щоб не писати знову і знову те саме get_random_query(): - ось основа
+
 # Завантаження змінних середовища з .env
 load_dotenv()
 
@@ -198,7 +200,7 @@ def gallery_view(request):
         'title_of_app': 'Royalty-Free Search App',
         'background_url': background_url,
     }
-    return render(request, 'core/gallery.html', context)
+    return render(request, 'gallery/gallery.html', context)
 
 
 def search_view(request):
