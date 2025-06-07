@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% block search_section %}
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+  href="{% static 'core/css/core.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock %}{% block search_section %}
 <!-- Заголовок та пояснення -->
 <h2 class="categories-header">Категорії для вибору:</h2>
 {% endblock %} {% block content %}

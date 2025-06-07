@@ -58,9 +58,6 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [
-        #     BASE_DIR / 'templates'
-        # ],  # Загальні шаблони для проекту --- Поглянь чи воно буде треба
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {

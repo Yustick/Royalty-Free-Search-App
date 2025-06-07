@@ -15,14 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('RoyaltyFreeSearchApp/admin/', admin.site.urls),
-    # Підключаємо маршрути додатку core з префіксом 'RoyaltyFreeSearchApp/'
-    path('RoyaltyFreeSearchApp/', include('apps.core.urls')),
-    # Підключаємо маршрути додатку accounts з префіксом 'RoyaltyFreeSearchApp/'
-    path('RoyaltyFreeSearchApp/', include('apps.accounts.urls')),
-    path('RoyaltyFreeSearchApp/', include('apps.search.urls')),
+    # path('', views.home_view, name='home'),
+    # path('categories', views.categories_view, name='categories'),
+    # path('about', views.about_view, name='about'),
+    # path('gallery', views.gallery_view, name='gallery'),
+    # path('search', views.search_view, name='search_view'),
 ]

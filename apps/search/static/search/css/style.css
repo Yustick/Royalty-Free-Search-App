@@ -1,102 +1,46 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background: #222;
-  background-image: url("../img/background_image.jpg");
-  background-repeat: no-repeat;
+/* Search section */
+.search-section {
+  flex-grow: 1;
   background-size: cover;
-  font-size: 120%;
-}
-
-div.card {
-  background: #000000dc;
+  background-position: center;
+  text-align: center;
   color: white;
-  padding: 2em;
-  border-radius: 30px;
-  width: 100%;
-  max-width: 420px;
-}
-
-form.search-form {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-input.search-bar {
-  border: none;
-  outline: none;
-  padding: 0.4em 1em;
-  border-radius: 24px;
-  background: #7c7c7c2b;
-  color: white;
-  font-family: inherit;
-  font-size: 110%;
-  width: calc(100% - 100px);
+.search-inner {
+  padding: 120px 0;
 }
 
-button {
-  margin: 0.5em;
-  border-radius: 50%;
+.search-inner h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.search-inner form {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.search-inner input[type="text"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.search-inner button {
+  padding: 10px 20px;
+  background-color: #f0ad4e;
   border: none;
-  outline: none;
-  height: 44px;
-  width: 44px;
-  background: #7c7c7c2b;
+  border-radius: 5px;
   color: white;
+  font-size: 16px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
-}
-
-button:hover {
-  background: #7c7c7c6b;
-}
-
-h1.city {
-  display: block;
-  font-size: 1.5em;
-  margin-top: 0.6em;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-  font-family: inherit;
-}
-
-h2.temp {
-  display: block;
-  font-size: 2em;
-  margin-top: 0.6em;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-  font-family: inherit;
-}
-
-div.description {
-  display: flex;
-  align-items: center;
-}
-
-div.weather-details {
-  display: block;
-  margin-top: 0.2em;
-  margin-left: 8px;
-  font-family: inherit;
-}
-img.weather-icon {
-  margin-left: 4px;
-  overflow-clip-margin: content-box;
-  overflow: clip;
-}
-
-img.country-icon {
-  margin-left: 4px;
-  overflow-clip-margin: content-box;
-  overflow: clip;
 }

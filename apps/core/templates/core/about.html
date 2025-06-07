@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+  href="{% static 'core/css/core.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock %} {% block content %}
 
 <main
   style="background-image: url('{{ background_url }}'); background-size: cover; background-position: center; padding: 2em 0;"
