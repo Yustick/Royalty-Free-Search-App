@@ -1,77 +1,151 @@
-/* Навігація та хедер */
-header {
-  background-color: #333;
+/* Стилі для home.html */
+.search-section {
+  flex-grow: 1;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
   color: white;
-  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-inner {
+  padding: 120px 0;
+}
+
+.search-inner h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.search-inner form {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.search-inner input[type="text"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.search-inner button {
+  padding: 10px 20px;
+  background-color: #f0ad4e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Стилі для categories.html */
+.categories-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #ffcc00;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  padding: 1em 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2em;
+  padding: 1em 1em;
+}
+
+.category-card {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  color: white;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  margin-top: auto;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.category-card h3 {
+  padding: 1em;
+  font-size: 1.5em;
   text-align: center;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 36px;
-}
-
-.nav-links {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.nav-links a {
-  color: white;
-  margin: 0 20px;
+.category-link {
+  display: block;
+  padding: 0.8em;
+  background-color: #ffcc00;
+  color: black;
+  text-align: center;
   text-decoration: none;
-  font-size: 18px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.nav-links a:hover {
-  text-decoration: underline;
+.category-link:hover {
+  background-color: #ff9900;
 }
 
 /* Стилі для about.html */
 .site-info {
-  background-color: rgba(255, 255, 255, 0.9); /* Трошки прозорий фон */
-  padding: 1.5em; /* Збільшено відступи для комфортнішого вигляду */
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1.5em;
   max-width: 900px;
-  margin: auto; /* Відступ знизу та зверху */
+  margin: auto;
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Легке тінювання */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .site-info h2 {
   text-align: center;
-  font-size: 2em; /* Збільшено розмір шрифта для кращої видимості */
+  font-size: 2em;
   color: #333;
-  margin-bottom: 1em; /* Відступ після заголовка */
-  font-weight: 600; /* Жирний шрифт */
+  margin-bottom: 1em;
+  font-weight: 600;
 }
 
 .site-info ul {
   font-size: 1.2em;
-  line-height: 1.6; /* Більший міжрядковий інтервал для кращої читабельності */
+  line-height: 1.6;
   color: #444;
   margin: 0;
-  padding-left: 1.5em; /* Лівий відступ для основного списку */
+  padding-left: 1.5em;
 }
 
 .site-info ul ul {
-  margin-top: 1em; /* Збільшений відступ для підсписків */
-  list-style-type: square; /* Квадратні маркери для підсписків */
-  margin-left: 2em; /* Додатковий лівий відступ для підсписків */
+  margin-top: 1em;
+  list-style-type: square;
+  margin-left: 2em;
 }
 
 .site-info ul li {
-  margin-bottom: 0.5em; /* Зменшено відступи між пунктами списку */
+  margin-bottom: 0.5em;
 }
 
 .site-info ul li:last-child {
-  margin-bottom: 0; /* Знімаємо відступ для останнього елемента */
-}
-
-/* Footer */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
+  margin-bottom: 0;
 }

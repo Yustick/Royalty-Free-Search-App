@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+  href="{% static 'gallery/css/gallery.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock %} {% block content %}
 <div class="container mt-5">
   <h2 class="mb-4">Моя галерея збережених зображень</h2>
 

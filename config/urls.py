@@ -18,11 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# Підключаємо маршрути додатків з префіксом 'RoyaltyFreeSearchApp/'
 urlpatterns = [
     path('RoyaltyFreeSearchApp/admin/', admin.site.urls),
-    # Підключаємо маршрути додатку core з префіксом 'RoyaltyFreeSearchApp/'
     path('RoyaltyFreeSearchApp/', include('apps.core.urls')),
-    # Підключаємо маршрути додатку accounts з префіксом 'RoyaltyFreeSearchApp/'
     path('RoyaltyFreeSearchApp/', include('apps.accounts.urls')),
     path('RoyaltyFreeSearchApp/', include('apps.search.urls')),
+    path('RoyaltyFreeSearchApp/', include('apps.gallery.urls')),
 ]

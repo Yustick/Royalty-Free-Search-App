@@ -1,5 +1,11 @@
-{% extends 'base.html' %} {% block content %}
-<!-- Галерея зображень -->
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+  href="{% static 'search/css/search.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock %} {% block content %}
+<!-- Image gallery -->
 <div class="image-gallery">
   {% for image in page_obj %}
   <div class="image-container">
@@ -10,7 +16,7 @@
   {% endfor %}
 </div>
 
-<!-- Пагінація -->
+<!-- Pagination -->
 <div class="pagination">
   <span class="page-links">
     {% if page_obj.has_previous %}

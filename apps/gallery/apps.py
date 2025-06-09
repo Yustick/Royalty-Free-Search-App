@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ProcessingConfig(AppConfig):
+class GalleryConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.processing'
+    name = 'apps.gallery'

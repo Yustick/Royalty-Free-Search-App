@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.search',
     'apps.accounts',
-    'apps.processing',
+    'apps.gallery',
 ]
 
 MIDDLEWARE = [

@@ -1,84 +1,31 @@
-{% extends "base.html" %} {% block content %}
-<div
-  style="
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-  "
->
-  <div style="width: 100%; max-width: 300px">
-    <h2 style="text-align: center; margin-bottom: 20px">Login</h2>
+{% extends "base.html" %} {% load static %} {% block styles %}
+<link
+  href="{% static 'accounts/css/accounts.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+{% endblock %} {% block content %}
+<div class="login-container">
+  <div class="login-form-container">
+    <h2>Login</h2>
 
     {% if user.is_authenticated %}
-    <div
-      style="
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background-color: #f1f1f1;
-        text-align: center;
-      "
-    >
+    <div class="login-status-container">
       <p>You are already logged in as <strong>{{ user.username }}</strong>.</p>
-      <form method="post" action="{% url 'logout' %}" style="margin-top: 10px">
+      <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button
-          type="submit"
-          style="
-            padding: 10px 20px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-          "
-        >
-          Logout
-        </button>
+        <button type="submit" class="login-button">Logout</button>
       </form>
     </div>
     {% else %}
-    <form
-      method="post"
-      style="
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background-color: #f9f9f9;
-      "
-    >
+    <form method="post" class="login-form">
       {% csrf_token %} {{ form.as_p }}
-      <button
-        type="submit"
-        style="
-          width: 100%;
-          padding: 10px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          font-weight: bold;
-          cursor: pointer;
-        "
-      >
-        Login
-      </button>
+      <button type="submit" class="login-button">Login</button>
     </form>
 
     {% if form.errors %}
-    <div
-      style="
-        margin-top: 10px;
-        color: #dc3545;
-        background-color: #f8d7da;
-        border: 1px solid #f5c2c7;
-        padding: 10px 15px;
-        border-radius: 5px;
-      "
-    >
-      <ul style="margin: 0; padding-left: 20px">
+    <div class="login-errors">
+      <ul>
         {% for field in form %} {% for error in field.errors %}
         <li><strong>{{ field.label }}:</strong> {{ error }}</li>
         {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
@@ -88,13 +35,8 @@
     </div>
     {% endif %}
 
-    <p style="text-align: center; margin-top: 15px">
-      Don't have an account?
-      <a
-        href="{% url 'register' %}"
-        style="color: #007bff; text-decoration: none"
-        >Register here</a
-      >.
+    <p class="login-register-link">
+      Don't have an account? <a href="{% url 'register' %}">Register here</a>.
     </p>
     {% endif %}
   </div>
