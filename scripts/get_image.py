@@ -136,3 +136,113 @@ def search_images_freepik(search_query):
             return "Зображення не знайдено за вашим запитом."
     else:
         return f"Помилка запиту до API: {response.status_code}"
+
+
+# ІЗ VIEWS ЗАБРАВ ФУНКЦІЇ ЦІ
+def fetch_images(query, service='pixabay'):
+    image_urls = []
+
+    if service == 'unsplash':
+        url = f"https://api.unsplash.com/photos/random?query={query}&client_id={UNSPLASH_API_KEY}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            try:
+                data = response.json()
+                if isinstance(data, list):
+                    image_urls = [image['urls']['regular'] for image in data]
+                else:
+                    print(f"Unexpected data format from Unsplash: {data}")
+            except Exception as e:
+                print(f"Error parsing JSON from Unsplash: {e}")
+
+    elif service == 'pexels':
+        url = f"https://api.pexels.com/v1/search?query={query}&per_page=20"
+        headers = {"Authorization": PEXELS_API_KEY}
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            try:
+                data = response.json()
+                if isinstance(data, dict) and 'photos' in data:
+                    image_urls = [photo['src']['original'] for photo in data['photos']]
+                else:
+                    print(f"Unexpected data format from Pexels: {data}")
+            except Exception as e:
+                print(f"Error parsing JSON from Pexels: {e}")
+
+    elif service == 'pixabay':
+        url = (
+            f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&q={query}&image_type=photo"
+        )
+        response = requests.get(url)
+        if response.status_code == 200:
+            try:
+                data = response.json()
+                if isinstance(data, dict) and 'hits' in data:
+                    image_urls = [hit['largeImageURL'] for hit in data['hits']]
+                else:
+                    print(f"Unexpected data format from Pixabay: {data}")
+            except Exception as e:
+                print(f"Error parsing JSON from Pixabay: {e}")
+
+    elif service == 'freepik':
+        url = f"https://api.freepik.com/v2/search/?q={query}&api_key={FREEPIK_API_KEY}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            try:
+                data = response.json()
+                if isinstance(data, dict) and 'data' in data:
+                    image_urls = [item['image_url'] for item in data['data']]
+                else:
+                    print(f"Unexpected data format from Freepik: {data}")
+            except Exception as e:
+                print(f"Error parsing JSON from Freepik: {e}")
+
+    return image_urls[:20]  # Повертати не більше 20 зображень
+
+
+def random_category():
+    # Створимо випадкові запити для категорій
+    categories = [
+        'Nature',
+        'Technology',
+        'Business',
+        'Food',
+        'Animals',
+        'Sports',
+        'Landscape',
+        'Travel',
+        'Clothes',
+        'Games',
+    ]
+    return random.choice(categories)
+
+
+def category_thumbnails_array():
+    # Список категорій для вибору
+    categories = [
+        'Nature',
+        'Technology',
+        'Business',
+        'Food',
+        'Animals',
+        'Sports',
+        'Landscape',
+        'Travel',
+        'Clothes',
+        'Games',
+    ]
+
+    # Отримуємо зображення для кожної категорії
+    category_data = []
+    for category in categories:
+        # Викликаємо функцію fetch_images для кожної категорії
+        image_urls = fetch_images(category, service='pixabay')
+        category_data.append(
+            {
+                'name': category,
+                'image_url': (
+                    image_urls[0] if image_urls else ''
+                ),  # Перше зображення або порожній рядок, якщо зображення не знайдено
+            }
+        )
+    return category_data
