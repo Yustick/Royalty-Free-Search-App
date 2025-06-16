@@ -12,23 +12,34 @@
 
 .search-inner {
   padding: 120px 0;
+  max-width: 1000px; /* Збільшено максимальну ширину */
+  width: 100%;
 }
 
 .search-inner h2 {
   font-size: 40px;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Тінь для підвищення контрасту */
 }
 
 .search-inner form {
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 5px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.6
+  ); /* Замість білого використовуємо ніжний кремовий відтінок */
+  padding: 12px;
+  border-radius: 8px; /* Трохи округлені кути */
+  width: 77%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легке затемнення для кращої видимості */
 }
 
 .search-inner input[type="text"] {
-  padding: 10px;
-  width: 300px;
+  padding: 12px 15px; /* Збільшено внутрішні відступи */
+  width: 100%; /* Забезпечуємо, щоб поле займало всю доступну ширину */
+  max-width: 600px; /* Максимальна ширина поля для введення */
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
@@ -36,13 +47,21 @@
 }
 
 .search-inner button {
-  padding: 10px 20px;
-  background-color: #f0ad4e;
+  padding: 12px 25px; /* Збільшені внутрішні відступи */
+  background-color: #ff9900; /* Яскравий помаранчевий, щоб виділятися */
   border: none;
   border-radius: 5px;
   color: white;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легкий ефект тіні для "підняття" кнопки */
+}
+
+.search-inner button:hover {
+  background-color: #e68a00; /* Трохи темніший помаранчевий при наведенні */
+  transform: scale(1.05); /* Ефект збільшення кнопки при наведенні */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Інтенсивніша тінь */
 }
 
 /* Стилі для categories.html */
@@ -53,7 +72,7 @@
   text-align: center;
   font-size: 2em;
   font-weight: bold;
-  color: #ffcc00;
+  color: rgb(255, 170, 0);
   text-transform: uppercase;
   letter-spacing: 1px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
@@ -64,7 +83,7 @@
 
 .categories {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2em;
   padding: 1em 1em;
 }
@@ -120,6 +139,7 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Заголовок */
 .site-info h2 {
   text-align: center;
   font-size: 2em;
@@ -128,18 +148,22 @@
   font-weight: 600;
 }
 
+/* Нові стилі для абзаців у .site-info */
+.site-info p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 0.5em; /* Зменшено відступ між абзацом і списком */
+}
+
+/* Стилі списку функціоналу */
 .site-info ul {
   font-size: 1.2em;
   line-height: 1.6;
   color: #444;
   margin: 0;
   padding-left: 1.5em;
-}
-
-.site-info ul ul {
-  margin-top: 1em;
-  list-style-type: square;
-  margin-left: 2em;
+  list-style-type: disc;
 }
 
 .site-info ul li {

@@ -1,0 +1,295 @@
+{% extends 'base.html' %} {% load static %} {% block styles %}
+<link
+  href="{% static 'gallery/css/edit_image.css' %}"
+  rel="stylesheet"
+  type="text/css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.css"
+/>
+{% endblock %} {% block content %}
+<div class="section-box" id="crop-section">
+  <div class="container">
+    <h2>Image editing</h2>
+  </div>
+
+  <div class="cropper-container">
+    <img id="previewImage" src="{{ image_url }}" />
+  </div>
+
+  <div id="crop-dimensions">
+    <span>Width: <b id="crop-width">0</b> px</span> |
+    <span>Height: <b id="crop-height">0</b> px</span>
+  </div>
+
+  <br />
+  <button type="button" id="crop-confirm">Confirm photo cropping</button>
+
+  <input type="hidden" name="x" id="x" />
+  <input type="hidden" name="y" id="y" />
+  <input type="hidden" name="width" id="width" />
+  <input type="hidden" name="height" id="height" />
+</div>
+
+<div id="edit-section" class="section-box">
+  <div class="edit-container">
+    <form method="POST" action="{% url 'process_image_edit' %}" id="edit-form">
+      <div class="container">
+        <h3>Edit parameters</h3>
+      </div>
+
+      {% csrf_token %}
+      <input type="hidden" name="image_url" value="{{ image_url }}" />
+      <input type="hidden" name="image_id" value="{{ image_id }}" />
+      <input type="hidden" name="cropped_data" id="cropped-data" />
+      <input
+        type="hidden"
+        name="rotate_degrees"
+        id="rotate-degrees"
+        value="0"
+      />
+
+      <input type="hidden" name="brightness" id="brightness" value="1" />
+      <input type="hidden" name="contrast" id="contrast" value="1" />
+      <input type="hidden" name="grayscale" id="grayscale" value="0" />
+      <input type="hidden" name="sepia" id="sepia" value="0" />
+      <input type="hidden" name="invert" id="invert" value="0" />
+      <input type="hidden" name="blur" id="blur" value="0" />
+
+      <button type="button" id="rotate-btn">Rotate 90°</button>
+
+      <div class="filters">
+        <label>Photo effects and filters:</label>
+        <div class="slider-container">
+          <label for="brightness-slider">Brightness</label>
+          <input
+            type="range"
+            id="brightness-slider"
+            min="0"
+            max="2"
+            step="0.01"
+            value="1"
+          />
+        </div>
+        <div class="slider-container">
+          <label for="contrast-slider">Contrast</label>
+          <input
+            type="range"
+            id="contrast-slider"
+            min="0"
+            max="3"
+            step="0.01"
+            value="1"
+          />
+        </div>
+        <div class="slider-container">
+          <label for="grayscale-slider">Black and white</label>
+          <input
+            type="range"
+            id="grayscale-slider"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0"
+          />
+        </div>
+        <div class="slider-container">
+          <label for="sepia-slider">Sepia</label>
+          <input
+            type="range"
+            id="sepia-slider"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0"
+          />
+        </div>
+        <div class="slider-container">
+          <label for="invert-slider">Inversion</label>
+          <input
+            type="range"
+            id="invert-slider"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0"
+          />
+        </div>
+        <div class="slider-container">
+          <label for="blur-slider">Blur</label>
+          <input
+            type="range"
+            id="blur-slider"
+            min="0"
+            max="5"
+            step="0.1"
+            value="0"
+          />
+        </div>
+      </div>
+
+      <button type="submit" style="margin-top: 15px">
+        💾 Apply and download
+      </button>
+    </form>
+
+    <div class="preview-container">
+      <h3>Preview image with effects and filters</h3>
+      <canvas id="edit-canvas"></canvas>
+    </div>
+  </div>
+</div>
+{% comment %} Cropper.js for cropping an image {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.js"></script>
+
+<script>
+  let cropper;
+  const image = document.getElementById("previewImage");
+  const cropConfirmBtn = document.getElementById("crop-confirm");
+  const cropWidthSpan = document.getElementById("crop-width");
+  const cropHeightSpan = document.getElementById("crop-height");
+
+  const cropSection = document.getElementById("crop-section");
+  const editSection = document.getElementById("edit-section");
+
+  const croppedDataInput = document.getElementById("cropped-data");
+  const canvas = document.getElementById("edit-canvas");
+  const ctx = canvas.getContext("2d");
+
+  const rotateBtn = document.getElementById("rotate-btn");
+  const rotateDegreesInput = document.getElementById("rotate-degrees");
+
+  const form = document.getElementById("edit-form");
+  const filterSliders = {
+    brightness: document.getElementById("brightness-slider"),
+    contrast: document.getElementById("contrast-slider"),
+    grayscale: document.getElementById("grayscale-slider"),
+    sepia: document.getElementById("sepia-slider"),
+    invert: document.getElementById("invert-slider"),
+    blur: document.getElementById("blur-slider"),
+  };
+
+  const hiddenFilters = {
+    brightness: document.getElementById("brightness"),
+    contrast: document.getElementById("contrast"),
+    grayscale: document.getElementById("grayscale"),
+    sepia: document.getElementById("sepia"),
+    invert: document.getElementById("invert"),
+    blur: document.getElementById("blur"),
+  };
+
+  let rotateDegrees = 0;
+  function initCropper() {
+    cropper = new Cropper(image, {
+      aspectRatio: NaN,
+      viewMode: 1,
+      autoCropArea: 1,
+      zoomable: false,
+      scalable: false,
+      crop(event) {
+        const width = Math.round(event.detail.width);
+        const height = Math.round(event.detail.height);
+
+        cropWidthSpan.textContent = width;
+        cropHeightSpan.textContent = height;
+
+        document.getElementById("x").value = Math.round(event.detail.x);
+        document.getElementById("y").value = Math.round(event.detail.y);
+        document.getElementById("width").value = width;
+        document.getElementById("height").value = height;
+      },
+    });
+  }
+
+  if (image.complete) {
+    initCropper();
+  } else {
+    image.addEventListener("load", initCropper);
+  }
+
+  cropConfirmBtn.addEventListener("click", () => {
+    if (!cropper) {
+      alert("Image processing is not yet complete. Please try again later.");
+      return;
+    }
+
+    const croppedCanvas = cropper.getCroppedCanvas();
+    croppedDataInput.value = croppedCanvas.toDataURL("image/png");
+
+    editSection.style.display = "block";
+    cropSection.style.display = "none";
+
+    redrawCanvas();
+  });
+
+  rotateBtn.addEventListener("click", () => {
+    rotateDegrees = (rotateDegrees + 90) % 360;
+    rotateDegreesInput.value = rotateDegrees;
+    redrawCanvas();
+  });
+
+  Object.keys(filterSliders).forEach((key) => {
+    filterSliders[key].addEventListener("input", () => {
+      hiddenFilters[key].value = filterSliders[key].value;
+      redrawCanvas();
+    });
+  });
+
+  function getFilterString() {
+    return `
+      brightness(${filterSliders.brightness.value}) 
+      contrast(${filterSliders.contrast.value}) 
+      grayscale(${filterSliders.grayscale.value}) 
+      sepia(${filterSliders.sepia.value}) 
+      invert(${filterSliders.invert.value}) 
+      blur(${filterSliders.blur.value}px)
+    `;
+  }
+
+  function redrawCanvas() {
+    const img = new Image();
+    img.onload = () => {
+      const scale = 2;
+      const radians = (rotateDegrees * Math.PI) / 180;
+
+      const sin = Math.abs(Math.sin(radians));
+      const cos = Math.abs(Math.cos(radians));
+      const baseWidth = img.width;
+      const baseHeight = img.height;
+
+      const newWidth = (baseWidth * cos + baseHeight * sin) * scale;
+      const newHeight = (baseWidth * sin + baseHeight * cos) * scale;
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.filter = getFilterString();
+
+      ctx.save();
+      ctx.translate(newWidth / 2, newHeight / 2);
+      ctx.rotate(radians);
+
+      ctx.drawImage(
+        img,
+        (-baseWidth * scale) / 2,
+        (-baseHeight * scale) / 2,
+        baseWidth * scale,
+        baseHeight * scale
+      );
+
+      ctx.restore();
+    };
+    img.src = croppedDataInput.value;
+  }
+
+  form.addEventListener("submit", (e) => {
+    rotateDegreesInput.value = rotateDegrees;
+    Object.keys(filterSliders).forEach((key) => {
+      hiddenFilters[key].value = filterSliders[key].value;
+    });
+  });
+</script>
+{% endblock %}

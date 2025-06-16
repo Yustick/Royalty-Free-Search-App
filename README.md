@@ -1,6 +1,6 @@
 # Royalty-Free Image Search App
 
-🎯 A web application for searching, viewing, and downloading royalty-free images from sources like Unsplash, Pexels, and Pixabay. Includes basic editing tools and image gallery features.
+🎯 A web application for searching, viewing, and downloading royalty-free images from sources like Unsplash, Pexels, and Pixabay(now only this is available). Includes basic editing tools and image gallery features.
 
 ## 🌐 Features
 
@@ -8,9 +8,7 @@
 - 📦 Sources: Unsplash API, Pexels API, Pixabay API
 - 🖼️ Download and preview images
 - ✂️ Batch crop and apply filters
-- 🗂️ Organize images into folders
-- 🧠 AI-based object detection and sorting (optional)
-- 🖥️ Built with Django, SQLite, Pillow, OpenCV
+- 🖥️ Built with Python, Django, JavaScript, SQLite, Pillow, Requests
 
 ## 📸 Screenshots
 
@@ -22,5 +20,5 @@
 - Django
 - SQLite
 - REST APIs (Unsplash, Pexels, Pixabay)
-- Pillow & OpenCV for image processing
-- Bootstrap / Tailwind (optional frontend)
+- Pillow for image processing
+- Bootstrap (optional frontend)

@@ -3,224 +3,109 @@ import requests
 import random
 from dotenv import load_dotenv
 
-"""ТАК, ЦЕЙ ФАЙЛ МАЄ БУТИ ОСНОВНИМ СКРИПТОМ - ЩОБ У ВСИХ VIEWS ВИКОРИСТОВУВАВСЯ ВІН"""
-
-
-# ВИКОРИСТАЙ ЦЕЙ ФАЙЛ, БО ВІН ОДИН І СКОРОЧУЄ К-СТЬ КОДУ + Є ВАРІК РАНДОМНИХ ЗОБРАЖЕНЬ
-# Можливо тут варто розділити кожне АПІ на свій файл, а в цьому їх викликати?
-
-# ДОДАЙ функцію з вибору категорії і використовуй у інших, щоб не писати знову і знову те саме get_random_query(): - ось основа
-
-# Завантаження змінних середовища з .env
 load_dotenv()
 
-# Отримуємо API-ключі з .env
-PIXABAY_API_KEY = os.getenv("PIXABAY_API_KEY")
-PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
-UNSPLASH_API_KEY = os.getenv("UNSPLASH_ACCESS_KEY_API")
-FREEPIK_API_KEY = os.getenv("FREEPIK_API_KEY")
+# Getting API keys from .env
+PIXABAY_API_KEY = os.getenv('PIXABAY_API_KEY')
+PEXELS_API_KEY = os.getenv('PEXELS_API_KEY')
+UNSPLASH_API_KEY = os.getenv('UNSPLASH_ACCESS_KEY_API')
+FREEPIK_API_KEY = os.getenv('FREEPIK_API_KEY')
 
-# Перевірка, чи були отримані API-ключі
 if (
     not PIXABAY_API_KEY
     or not PEXELS_API_KEY
     or not UNSPLASH_API_KEY
     or not FREEPIK_API_KEY
 ):
-    print(
-        "Один або кілька API-ключів не знайдено! Переконайтеся, що ви додали їх в .env файл."
-    )
+    print('One or more API keys not found! Make sure you added them to the .env file.')
     exit()
 
 
-def search_images(api_name, search_query=None):
-    """
-    Функція для пошуку зображень через різні API.
-
-    :param api_name: Назва API для використання (наприклад, 'pixabay', 'pexels', 'unsplash', 'freepik')
-    :param search_query: Запит для пошуку (наприклад, 'landscape'). Якщо не передано, генерується випадковий запит.
-    :return: Список URL великих зображень або повідомлення про помилку.
-    """
-    if search_query is None:
-        search_query = (
-            get_random_query()
-        )  # Генеруємо випадковий запит для обладинок чи фонового зображення
-
-    if api_name == "pixabay":
-        return search_images_pixabay(search_query)
-    elif api_name == "pexels":
-        return search_images_pexels(search_query)
-    elif api_name == "unsplash":
-        return search_images_unsplash(search_query)
-    elif api_name == "freepik":
-        return search_images_freepik(search_query)
-    else:
-        return "Невідомий API."
-
-
-def get_random_query():
-    """Функція для генерації випадкових запитів."""
+def get_random_topic():
+    """Function for generating random queries"""
     random_queries = [
-        "landscape",
-        "nature",
-        "city",
-        "abstract",
-        "ocean",
-        "mountain",
-        "forest",
-        "animals",
-        "night sky",
-        "flowers",
+        'Technology',
+        'Business',
+        'Food',
+        'Animals',
+        'Sports',
+        'Landscape',
+        'Travel',
+        'Clothes',
+        'Games',
+        'City',
+        'Abstract',
+        'Ocean',
+        'Mountain',
+        'Forest',
+        'Night sky',
+        'Flowers',
     ]
     return random.choice(random_queries)
 
 
-def search_images_pixabay(search_query):
-    """Функція для пошуку зображень на Pixabay API."""
-    url = f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&q={search_query}&image_type=photo"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        if 'hits' in data and data['hits']:
-            return [
-                hit['largeImageURL'] for hit in data['hits'][:5]
-            ]  # Повертаємо перші 5 зображень
-        else:
-            return "Зображення не знайдено за вашим запитом."
-    else:
-        return f"Помилка запиту до API: {response.status_code}"
-
-
-def search_images_pexels(search_query):
-    """Функція для пошуку зображень на Pexels API."""
-    url = f"https://api.pexels.com/v1/search?query={search_query}&per_page=5"
-    response = requests.get(url, headers={"Authorization": PEXELS_API_KEY})
-    if response.status_code == 200:
-        data = response.json()
-        if 'photos' in data and data['photos']:
-            return [photo['src']['original'] for photo in data['photos']]
-        else:
-            return "Зображення не знайдено за вашим запитом."
-    else:
-        return f"Помилка запиту до API: {response.status_code}"
-
-
-def search_images_unsplash(search_query):
-    """Функція для пошуку зображень на Unsplash API."""
-    url = f"https://api.unsplash.com/photos/random?query={search_query}&client_id={UNSPLASH_API_KEY}&count=5"
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        if data:
-            return [image['urls']['regular'] for image in data]
-        else:
-            return "Зображення не знайдено за вашим запитом."
-    else:
-        return f"Помилка запиту до API: {response.status_code}"
-
-
-def search_images_freepik(search_query):
-    """Функція для пошуку зображень на Freepik API."""
-    url = (
-        f"https://api.freepik.com/v2/search/?q={search_query}&api_key={FREEPIK_API_KEY}"
-    )
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        if 'data' in data and data['data']:
-            return [
-                item.get('image_url', "Зображення не має доступного URL.")
-                for item in data['data'][:5]
-            ]
-        else:
-            return "Зображення не знайдено за вашим запитом."
-    else:
-        return f"Помилка запиту до API: {response.status_code}"
-
-
-# ІЗ VIEWS ЗАБРАВ ФУНКЦІЇ ЦІ
-def fetch_images(query, service='pixabay'):
+def fetch_images(query, service='pixabay', limit=20):
+    """A universal function for retrieving images from various APIs."""
     image_urls = []
 
     if service == 'unsplash':
-        url = f"https://api.unsplash.com/photos/random?query={query}&client_id={UNSPLASH_API_KEY}"
+        url = f'https://api.unsplash.com/photos/random?query={query}&client_id={UNSPLASH_API_KEY}&count={limit}'
         response = requests.get(url)
         if response.status_code == 200:
             try:
                 data = response.json()
                 if isinstance(data, list):
                     image_urls = [image['urls']['regular'] for image in data]
-                else:
-                    print(f"Unexpected data format from Unsplash: {data}")
             except Exception as e:
-                print(f"Error parsing JSON from Unsplash: {e}")
+                print(f'Error parsing JSON from Unsplash: {e}')
 
     elif service == 'pexels':
-        url = f"https://api.pexels.com/v1/search?query={query}&per_page=20"
-        headers = {"Authorization": PEXELS_API_KEY}
+        url = f'https://api.pexels.com/v1/search?query={query}&per_page={limit}'
+        headers = {'Authorization': PEXELS_API_KEY}
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             try:
                 data = response.json()
-                if isinstance(data, dict) and 'photos' in data:
+                if 'photos' in data:
                     image_urls = [photo['src']['original'] for photo in data['photos']]
-                else:
-                    print(f"Unexpected data format from Pexels: {data}")
             except Exception as e:
-                print(f"Error parsing JSON from Pexels: {e}")
+                print(f'Error parsing JSON from Pexels: {e}')
 
     elif service == 'pixabay':
-        url = (
-            f"https://pixabay.com/api/?key={PIXABAY_API_KEY}&q={query}&image_type=photo"
-        )
+        limit = max(3, limit)  # API requirement, minimum photos
+        url = f'https://pixabay.com/api/?key={PIXABAY_API_KEY}&q={query}&image_type=photo&per_page={limit}'
         response = requests.get(url)
         if response.status_code == 200:
             try:
                 data = response.json()
-                if isinstance(data, dict) and 'hits' in data:
+                if 'hits' in data:
                     image_urls = [hit['largeImageURL'] for hit in data['hits']]
-                else:
-                    print(f"Unexpected data format from Pixabay: {data}")
             except Exception as e:
-                print(f"Error parsing JSON from Pixabay: {e}")
+                print(f'Error parsing JSON from Pixabay: {e}')
 
     elif service == 'freepik':
-        url = f"https://api.freepik.com/v2/search/?q={query}&api_key={FREEPIK_API_KEY}"
+        url = f'https://api.freepik.com/v2/search/?q={query}&api_key={FREEPIK_API_KEY}&limit={limit}'
         response = requests.get(url)
         if response.status_code == 200:
             try:
                 data = response.json()
-                if isinstance(data, dict) and 'data' in data:
+                if 'data' in data:
                     image_urls = [item['image_url'] for item in data['data']]
-                else:
-                    print(f"Unexpected data format from Freepik: {data}")
             except Exception as e:
-                print(f"Error parsing JSON from Freepik: {e}")
+                print(f'Error parsing JSON from Freepik: {e}')
 
-    return image_urls[:20]  # Повертати не більше 20 зображень
+    return image_urls[:limit]
 
 
-def random_category():
-    # Створимо випадкові запити для категорій
-    categories = [
-        'Nature',
-        'Technology',
-        'Business',
-        'Food',
-        'Animals',
-        'Sports',
-        'Landscape',
-        'Travel',
-        'Clothes',
-        'Games',
-    ]
-    return random.choice(categories)
+def search_images(service, query=None, limit=5):
+    """Wrapper for quickly retrieving multiple images (default 5)."""
+    query = query or get_random_topic()
+    return fetch_images(query, service=service, limit=limit)
 
 
 def category_thumbnails_array():
-    # Список категорій для вибору
+    """Forming a list of categories with one image in each."""
     categories = [
-        'Nature',
         'Technology',
         'Business',
         'Food',
@@ -230,19 +115,22 @@ def category_thumbnails_array():
         'Travel',
         'Clothes',
         'Games',
+        'City',
+        'Abstract',
+        'Ocean',
+        'Mountain',
+        'Forest',
+        'Night sky',
+        'Flowers',
     ]
 
-    # Отримуємо зображення для кожної категорії
     category_data = []
     for category in categories:
-        # Викликаємо функцію fetch_images для кожної категорії
-        image_urls = fetch_images(category, service='pixabay')
+        image_urls = fetch_images(category, service='pixabay', limit=1)
         category_data.append(
             {
                 'name': category,
-                'image_url': (
-                    image_urls[0] if image_urls else ''
-                ),  # Перше зображення або порожній рядок, якщо зображення не знайдено
+                'image_url': image_urls[0] if image_urls else '',
             }
         )
     return category_data

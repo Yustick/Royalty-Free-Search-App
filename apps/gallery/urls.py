@@ -20,4 +20,20 @@ from . import views
 
 urlpatterns = [
     path('gallery/', views.gallery_view, name='gallery'),
+    path(
+        'gallery/download-saved-image/<int:image_id>/',
+        views.download_image,
+        name='download_saved_image',
+    ),
+    path(
+        'gallery/delete-image/<int:image_id>/',
+        views.delete_saved_image,
+        name='delete_saved_image',
+    ),
+    path('gallery/edit/', views.process_image_edit, name='process_image_edit'),
+    path(
+        'gallery/edit-image/<int:image_id>/',
+        views.edit_image_view,
+        name='edit_image_view',
+    ),
 ]

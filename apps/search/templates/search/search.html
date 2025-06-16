@@ -5,11 +5,27 @@
   type="text/css"
 />
 {% endblock %} {% block content %}
-<!-- Image gallery -->
 <div class="image-gallery">
   {% for image in page_obj %}
   <div class="image-container">
-    <img src="{{ image }}" alt="{{ image }}" class="image-item" />
+    <img src="{{ image }}" alt="Image" class="image-item" />
+    <div class="image-actions">
+      <!-- Download -->
+      <form method="post" action="{% url 'download_image' %}">
+        {% csrf_token %}
+        <input type="hidden" name="image_url" value="{{ image }}" />
+        <input type="hidden" name="search_query" value="{{ search_query }}" />
+        <!-- Image name -->
+        <button type="submit" class="action-button">⬇ Download</button>
+      </form>
+      <!-- Save image to gallery -->
+      <form method="post" action="{% url 'save_image_to_gallery' %}">
+        {% csrf_token %}
+        <input type="hidden" name="image_url" value="{{ image }}" />
+        <input type="hidden" name="search_query" value="{{ search_query }}" />
+        <button type="submit" class="action-button">💾 Save</button>
+      </form>
+    </div>
   </div>
   {% empty %}
   <p>No images found for your search.</p>
@@ -17,6 +33,7 @@
 </div>
 
 <!-- Pagination -->
+{% if page_obj %}
 <div class="pagination">
   <span class="page-links">
     {% if page_obj.has_previous %}
@@ -26,11 +43,9 @@
       >Previous</a
     >
     {% endif %}
-
     <span
       >Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span
     >
-
     {% if page_obj.has_next %}
     <a
       href="?page={{ page_obj.next_page_number }}&search_query={{ search_query }}"
@@ -43,4 +58,4 @@
     {% endif %}
   </span>
 </div>
-{% endblock %}
+{% endif %} {% endblock %}

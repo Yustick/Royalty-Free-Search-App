@@ -4,12 +4,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title_of_app }}</title>
-    <link
-      href="{% static 'css/style.css' %}"
-      rel="stylesheet"
-      type="text/css"
-    />
+    <title>Royalty-Free Search App</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css" />
     <link
       rel="icon"
       href="{% static 'images/favicon.ico' %}"
@@ -21,7 +17,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>{{ title_of_app }}</h1>
+        <h1>Royalty-Free Search App</h1>
         <div class="nav-links">
           <a href="{% url 'home' %}">Home</a>
           <a href="{% url 'categories' %}">Categories</a>

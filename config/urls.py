@@ -17,8 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
-# Підключаємо маршрути додатків з префіксом 'RoyaltyFreeSearchApp/'
+# We connect application routes with the prefix RoyaltyFreeSearchApp/
 urlpatterns = [
     path('RoyaltyFreeSearchApp/admin/', admin.site.urls),
     path('RoyaltyFreeSearchApp/', include('apps.core.urls')),
@@ -26,3 +28,6 @@ urlpatterns = [
     path('RoyaltyFreeSearchApp/', include('apps.search.urls')),
     path('RoyaltyFreeSearchApp/', include('apps.gallery.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

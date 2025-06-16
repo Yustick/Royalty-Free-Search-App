@@ -5,34 +5,58 @@
   type="text/css"
 />
 {% endblock %} {% block content %}
-<div class="container mt-5">
-  <h2 class="mb-4">Моя галерея збережених зображень</h2>
+<div class="container">
+  <h2>Your saved image gallery</h2>
 
-  {% if saved_images %}
-  <div class="row">
-    {% for image in saved_images %}
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <img
-          src="{{ image.local_path.url }}"
-          class="card-img-top"
-          alt="Зображення {{ forloop.counter }}"
-        />
-        <div class="card-body">
-          <p class="card-text"><strong>Назва:</strong> {{ image.name }}</p>
-          <form action="{% url 'edit_image_redirect' image.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary w-100">
-              Редагувати
-            </button>
-          </form>
-        </div>
+  {% if page_obj %}
+  <div class="image-gallery">
+    {% for image in page_obj %}
+    <div class="image-container">
+      <img
+        src="{{ image.image_url }}"
+        class="image-item"
+        alt="Image {{ forloop.counter }}"
+      />
+      <div class="image-actions">
+        <!-- Download -->
+        <form action="{% url 'download_saved_image' image.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="action-button">⬇️ Download</button>
+        </form>
+        <!-- Delete -->
+        <form action="{% url 'delete_saved_image' image.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="action-button">❌ Delete</button>
+        </form>
+        <!-- Edit -->
+        <a href="{% url 'edit_image_view' image.id %}" class="action-button"
+          >✏️ Edit</a
+        >
       </div>
     </div>
     {% endfor %}
   </div>
+
+  <!-- Пагінація -->
+  <div class="pagination">
+    <span class="page-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1">First</a>
+      <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+      <span
+        >Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span
+      >
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    </span>
+  </div>
   {% else %}
-  <p>У вас ще немає збережених зображень.</p>
+  <div class="no-images-message">
+    <p>You don't have any saved images yet.</p>
+  </div>
   {% endif %}
 </div>
 {% endblock %}

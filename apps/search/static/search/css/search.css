@@ -44,3 +44,50 @@
   font-size: 16px;
   cursor: pointer;
 }
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.image-container {
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.image-item {
+  min-width: 190px;
+  border-radius: 6px;
+  display: block;
+}
+
+.image-actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.image-actions form,
+.image-actions a {
+  display: inline-block;
+}
+
+.action-button {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #ec971f;
+}

@@ -5,7 +5,7 @@
   type="text/css"
 />
 {% endblock %}{% block search_section %}
-<h2 class="categories-header">Категорії для вибору:</h2>
+<h2 class="categories-header">Categories to choose from:</h2>
 {% endblock %} {% block content %}
 
 <div class="categories">
@@ -20,7 +20,7 @@
     <a
       href="{% url 'search_view' %}?search_query={{ category.name }}"
       class="category-link"
-      >Переглянути</a
+      >Select</a
     >
   </div>
   {% endfor %}
