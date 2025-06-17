@@ -14,9 +14,6 @@ class SavedImage(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'name'], name='unique_image_name_per_user'
-            ),
-            models.UniqueConstraint(
                 fields=['user', 'image_hash'], name='unique_image_hash_per_user'
             ),
         ]
