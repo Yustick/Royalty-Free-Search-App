@@ -40,21 +40,21 @@ def save_image_to_gallery(request):
 
     if not image_url or not search_query:
         return HttpResponseBadRequest(
-            "Missing required fields: image_url or search_query."
+            'Missing required fields: image_url or search_query.'
         )
 
     try:
         response = requests.get(image_url)
         if response.status_code != 200:
-            return HttpResponseBadRequest("Failed to retrieve the image from the URL.")
+            return HttpResponseBadRequest('Failed to retrieve the image from the URL.')
         image_data = response.content
     except requests.exceptions.RequestException as e:
-        return HttpResponseBadRequest(f"Error fetching image: {e}")
+        return HttpResponseBadRequest(f'Error fetching image: {e}')
 
     image_hash = hashlib.md5(image_data).hexdigest()
 
     if SavedImage.objects.filter(user=request.user, image_hash=image_hash).exists():
-        return HttpResponseBadRequest("This image is already saved in your gallery.")
+        return HttpResponseBadRequest('This image is already saved in your gallery.')
 
     try:
         SavedImage.objects.create(
@@ -64,7 +64,7 @@ def save_image_to_gallery(request):
             image_hash=image_hash,
         )
     except Exception as e:
-        return HttpResponseBadRequest(f"Error saving image: {e}")
+        return HttpResponseBadRequest(f'Error saving image: {e}')
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 

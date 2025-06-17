@@ -74,7 +74,7 @@ def edit_image_view(request, image_id):
     os.makedirs(temp_path, exist_ok=True)
     # Workaround for giving different names to files is already editable,
     # because only a query is available for the name, not a unique name given by API
-    filename = f'{image.name}_{image.saved_at.strftime("%Y-%m-%d_%H-%M-%S")}.jpg'
+    filename = f'{image.name}_{image.saved_at.strftime('%Y-%m-%d_%H-%M-%S')}.jpg'
     temp_image_path = os.path.join(temp_path, filename)
 
     if not os.path.exists(temp_image_path):
