@@ -1,4 +1,5 @@
 import requests
+import hashlib
 from django.shortcuts import render
 from scripts.get_image import fetch_images
 from django.core.paginator import Paginator
@@ -6,8 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .models import SavedImage
-from django.http import HttpResponse, Http404
-
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 
 SERVICE_API_NAME = 'pixabay'
 
@@ -37,10 +37,35 @@ def search_view(request):
 def save_image_to_gallery(request):
     image_url = request.POST.get('image_url')
     search_query = request.POST.get('search_query')
-    if image_url:
-        SavedImage.objects.get_or_create(
-            user=request.user, image_url=image_url, name=search_query
+
+    if not image_url or not search_query:
+        return HttpResponseBadRequest(
+            "Missing required fields: image_url or search_query."
         )
+
+    try:
+        response = requests.get(image_url)
+        if response.status_code != 200:
+            return HttpResponseBadRequest("Failed to retrieve the image from the URL.")
+        image_data = response.content
+    except requests.exceptions.RequestException as e:
+        return HttpResponseBadRequest(f"Error fetching image: {e}")
+
+    image_hash = hashlib.md5(image_data).hexdigest()
+
+    if SavedImage.objects.filter(user=request.user, image_hash=image_hash).exists():
+        return HttpResponseBadRequest("This image is already saved in your gallery.")
+
+    try:
+        SavedImage.objects.create(
+            user=request.user,
+            image_url=image_url,
+            name=search_query,
+            image_hash=image_hash,
+        )
+    except Exception as e:
+        return HttpResponseBadRequest(f"Error saving image: {e}")
+
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 

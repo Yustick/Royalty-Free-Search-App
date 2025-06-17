@@ -72,7 +72,9 @@ def edit_image_view(request, image_id):
     # Loading the image from the URL if it is not already saved, and then deleting it after 10 minutes so there is no garbage
     temp_path = os.path.join(settings.MEDIA_ROOT, 'temp_downloads')
     os.makedirs(temp_path, exist_ok=True)
-    filename = f'{image.name}.jpg'
+    # Workaround for giving different names to files is already editable,
+    # because only a query is available for the name, not a unique name given by API
+    filename = f'{image.name}_{image.saved_at.strftime("%Y-%m-%d_%H-%M-%S")}.jpg'
     temp_image_path = os.path.join(temp_path, filename)
 
     if not os.path.exists(temp_image_path):
@@ -80,7 +82,7 @@ def edit_image_view(request, image_id):
         if response.status_code == 200:
             with open(temp_image_path, 'wb') as f:
                 f.write(response.content)
-                delete_file_after_delay(temp_image_path, delay_seconds=300)
+                delete_file_after_delay(temp_image_path, delay_seconds=600)
 
     image_url = f'/media/temp_downloads/{filename}'
     return render(
@@ -94,7 +96,7 @@ def edit_image_view(request, image_id):
 
 
 @login_required
-@require_http_methods(['GET'])
+@require_http_methods(['POST'])
 def process_image_edit(request):
     if request.method == 'POST':
         try:
@@ -162,9 +164,15 @@ def process_image_edit(request):
             image.save(buffer, format=img_format)
             buffer.seek(0)
 
+            # Getting name of the image
+            image_id = request.POST.get('image_id')
+            image_name = get_object_or_404(
+                SavedImage, id=image_id, user=request.user
+            ).name
+
             response = HttpResponse(buffer, content_type=f'image/{img_format.lower()}')
             response['Content-Disposition'] = (
-                f'attachment; filename="edited_image.{img_format.lower()}"'
+                f'attachment; filename="edited_{image_name}.{img_format.lower()}"'
             )
             return response
 
