@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from scripts.get_image import search_images, category_thumbnails_array
 
+from scripts.get_image import category_thumbnails_array, search_images
 
 SERVICE_API_NAME = 'pixabay'
 

@@ -16,12 +16,11 @@ Including another URLconf
 """
 
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
     path('search/', views.search_view, name='search_view'),
-    path(
-        'search/save-image/', views.save_image_to_gallery, name='save_image_to_gallery'
-    ),
+    path('search/save-image/', views.save_image_to_gallery, name='save_image_to_gallery'),
     path('search/download-image/', views.download_image, name='download_image'),
 ]
