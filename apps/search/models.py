@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class SavedImage(models.Model):
@@ -7,9 +7,7 @@ class SavedImage(models.Model):
     name = models.CharField(max_length=255, default='untitled_image')
     image_url = models.URLField()
     saved_at = models.DateTimeField(auto_now_add=True)
-    image_hash = models.CharField(
-        max_length=64, unique=True, null=False, blank=False, default=''
-    )
+    image_hash = models.CharField(max_length=64, unique=True, null=False, blank=False, default='')
 
     class Meta:
         constraints = [
@@ -19,6 +17,4 @@ class SavedImage(models.Model):
         ]
 
     def __str__(self):
-        return (
-            f'{self.user.username} - {self.name} - {self.saved_at} - {self.image_url}'
-        )
+        return f'{self.user.username} - {self.name} - {self.saved_at} - {self.image_url}'

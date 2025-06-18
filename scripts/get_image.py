@@ -1,6 +1,7 @@
 import os
-import requests
 import random
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -11,12 +12,7 @@ PEXELS_API_KEY = os.getenv('PEXELS_API_KEY')
 UNSPLASH_API_KEY = os.getenv('UNSPLASH_ACCESS_KEY_API')
 FREEPIK_API_KEY = os.getenv('FREEPIK_API_KEY')
 
-if (
-    not PIXABAY_API_KEY
-    or not PEXELS_API_KEY
-    or not UNSPLASH_API_KEY
-    or not FREEPIK_API_KEY
-):
+if not PIXABAY_API_KEY or not PEXELS_API_KEY or not UNSPLASH_API_KEY or not FREEPIK_API_KEY:
     print('One or more API keys not found! Make sure you added them to the .env file.')
     exit()
 
@@ -84,7 +80,9 @@ def fetch_images(query, service='pixabay', limit=20):
                 print(f'Error parsing JSON from Pixabay: {e}')
 
     elif service == 'freepik':
-        url = f'https://api.freepik.com/v2/search/?q={query}&api_key={FREEPIK_API_KEY}&limit={limit}'
+        url = (
+            f'https://api.freepik.com/v2/search/?q={query}&api_key={FREEPIK_API_KEY}&limit={limit}'
+        )
         response = requests.get(url)
         if response.status_code == 200:
             try:

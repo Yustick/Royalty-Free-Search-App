@@ -1,17 +1,19 @@
-import os
 import base64
-import time
-import requests
+import os
 import threading
+import time
 from io import BytesIO
+
+import requests
 from django.conf import settings
-from django.http import HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_http_methods, require_POST
 from PIL import Image, ImageEnhance, ImageFilter
+
 from apps.search.models import SavedImage
-from django.views.decorators.http import require_POST, require_http_methods
 
 
 @login_required
@@ -166,9 +168,7 @@ def process_image_edit(request):
 
             # Getting name of the image
             image_id = request.POST.get('image_id')
-            image_name = get_object_or_404(
-                SavedImage, id=image_id, user=request.user
-            ).name
+            image_name = get_object_or_404(SavedImage, id=image_id, user=request.user).name
 
             response = HttpResponse(buffer, content_type=f'image/{img_format.lower()}')
             response['Content-Disposition'] = (

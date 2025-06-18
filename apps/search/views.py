@@ -1,13 +1,15 @@
-import requests
 import hashlib
-from django.shortcuts import render
-from scripts.get_image import fetch_images
-from django.core.paginator import Paginator
-from django.shortcuts import redirect
+
+import requests
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
+
+from scripts.get_image import fetch_images
+
 from .models import SavedImage
-from django.http import HttpResponse, Http404, HttpResponseBadRequest
 
 SERVICE_API_NAME = 'pixabay'
 
@@ -39,9 +41,7 @@ def save_image_to_gallery(request):
     search_query = request.POST.get('search_query')
 
     if not image_url or not search_query:
-        return HttpResponseBadRequest(
-            'Missing required fields: image_url or search_query.'
-        )
+        return HttpResponseBadRequest('Missing required fields: image_url or search_query.')
 
     try:
         response = requests.get(image_url)
