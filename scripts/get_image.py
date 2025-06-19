@@ -16,28 +16,29 @@ if not PIXABAY_API_KEY or not PEXELS_API_KEY or not UNSPLASH_API_KEY or not FREE
     print('One or more API keys not found! Make sure you added them to the .env file.')
     exit()
 
+QUERIES_CATEGORIES = [
+    'Technology',
+    'Business',
+    'Food',
+    'Animals',
+    'Sports',
+    'Landscape',
+    'Travel',
+    'Clothes',
+    'Games',
+    'City',
+    'Abstract',
+    'Ocean',
+    'Mountain',
+    'Forest',
+    'Night sky',
+    'Flowers',
+]
+
 
 def get_random_topic():
     """Function for generating random queries"""
-    random_queries = [
-        'Technology',
-        'Business',
-        'Food',
-        'Animals',
-        'Sports',
-        'Landscape',
-        'Travel',
-        'Clothes',
-        'Games',
-        'City',
-        'Abstract',
-        'Ocean',
-        'Mountain',
-        'Forest',
-        'Night sky',
-        'Flowers',
-    ]
-    return random.choice(random_queries)
+    return random.choice(QUERIES_CATEGORIES)
 
 
 def fetch_images(query, service='pixabay', limit=20):
@@ -103,27 +104,8 @@ def search_images(service, query=None, limit=5):
 
 def category_thumbnails_array():
     """Forming a list of categories with one image in each."""
-    categories = [
-        'Technology',
-        'Business',
-        'Food',
-        'Animals',
-        'Sports',
-        'Landscape',
-        'Travel',
-        'Clothes',
-        'Games',
-        'City',
-        'Abstract',
-        'Ocean',
-        'Mountain',
-        'Forest',
-        'Night sky',
-        'Flowers',
-    ]
-
     category_data = []
-    for category in categories:
+    for category in QUERIES_CATEGORIES:
         image_urls = fetch_images(category, service='pixabay', limit=1)
         category_data.append(
             {
