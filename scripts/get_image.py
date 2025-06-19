@@ -41,7 +41,7 @@ def get_random_topic():
     return random.choice(QUERIES_CATEGORIES)
 
 
-def fetch_images(query, service='pixabay', limit=20):
+def fetch_images(query, service='pixabay', limit=180):
     """A universal function for retrieving images from various APIs."""
     image_urls = []
 
