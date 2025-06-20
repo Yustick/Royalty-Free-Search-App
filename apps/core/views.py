@@ -6,11 +6,13 @@ SERVICE_API_NAME = 'pixabay'
 
 
 def home_view(request):
-    image_urls = search_images(SERVICE_API_NAME)
-    background_url = image_urls[0] if isinstance(image_urls, list) else None
+    images = search_images(SERVICE_API_NAME)
+    background = images[0] if images else None
 
     context = {
-        'background_url': background_url,
+        'background_url': background['url'] if background else None,
+        'background_author': background['author'] if background else None,
+        'background_source': background['source'] if background else None,
     }
     return render(request, 'core/home.html', context)
 
@@ -24,10 +26,13 @@ def categories_view(request):
 
 
 def about_view(request):
-    image_urls = search_images(SERVICE_API_NAME)
-    background_url = image_urls[0] if isinstance(image_urls, list) else None
+    # Припустимо, search_images повертає список словників із ключами url, author, source
+    images = search_images(SERVICE_API_NAME)
+    background = images[0] if images else None
 
     context = {
-        'background_url': background_url,
+        'background_url': background['url'] if background else None,
+        'background_author': background['author'] if background else None,
+        'background_source': background['source'] if background else None,
     }
     return render(request, 'core/about.html', context)

@@ -29,6 +29,8 @@
       {% csrf_token %}
       <input type="hidden" name="image_url" value="{{ background_url }}" />
       <input type="hidden" name="search_query" value="background" />
+      <input type="hidden" name="author" value="{{ background_author }}" />
+      <input type="hidden" name="source" value="{{ background_source }}" />
       <button type="submit" class="action-button">⬇ Download</button>
     </form>
 
@@ -37,6 +39,8 @@
       {% csrf_token %}
       <input type="hidden" name="image_url" value="{{ background_url }}" />
       <input type="hidden" name="search_query" value="background" />
+      <input type="hidden" name="author" value="{{ background_author }}" />
+      <input type="hidden" name="source" value="{{ background_source }}" />
       <button type="submit" class="action-button">💾 Save</button>
     </form>
   </div>
