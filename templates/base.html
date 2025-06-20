@@ -14,6 +14,7 @@
     {% block styles %}{% endblock %}
   </head>
 
+  {% block scripts %}{% endblock %}
   <body>
     <div class="wrapper">
       <header>
@@ -37,9 +38,9 @@
 
       <main>
         {% block search_section %}
-        <!-- Search section will be injected here if needed -->
+        <!-- Search section -->
         {% endblock %} {% block content %}
-        <!-- Main content will be injected here -->
+        <!-- Main content -->
         {% endblock %}
       </main>
     </div>

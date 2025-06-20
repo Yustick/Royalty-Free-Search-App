@@ -5,10 +5,9 @@
   type="text/css"
 />
 {% endblock %} {% block search_section %}
-
 <section
   class="search-section"
-  style="background-image: url('{{ background_url }}');"
+  style="background-image: url('{{ background_url }}')"
 >
   <div class="search-inner">
     <h2>Search High-Quality, Free Images</h2>
@@ -22,5 +21,29 @@
       <button type="submit">Search</button>
     </form>
   </div>
+
+  {% if background_url %}
+  <div class="image-actions-fixed">
+    <!-- Download -->
+    <form method="post" action="{% url 'download_image' %}">
+      {% csrf_token %}
+      <input type="hidden" name="image_url" value="{{ background_url }}" />
+      <input type="hidden" name="search_query" value="background" />
+      <button type="submit" class="action-button">⬇ Download</button>
+    </form>
+
+    <!-- Save -->
+    <form method="post" action="{% url 'save_image_to_gallery' %}">
+      {% csrf_token %}
+      <input type="hidden" name="image_url" value="{{ background_url }}" />
+      <input type="hidden" name="search_query" value="background" />
+      <button type="submit" class="action-button">💾 Save</button>
+    </form>
+  </div>
+  {% endif %} {% if background_author and background_source %}
+  <div class="image-credit">
+    Photo by {{ background_author }} via {{ background_source }}
+  </div>
+  {% endif %}
 </section>
-{% endblock %} {% block content %} {% endblock %}
+{% endblock %} {% block content %}{% endblock %}

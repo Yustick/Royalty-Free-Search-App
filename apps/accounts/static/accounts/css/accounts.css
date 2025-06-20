@@ -1,4 +1,4 @@
-/* Стилі для login.html */
+/* login styles */
 .login-container {
   display: flex;
   align-items: center;
@@ -84,7 +84,7 @@
   text-decoration: none;
 }
 
-/* Стилі для register.html */
+/* register styles */
 .register-container {
   max-width: 400px;
   margin: 0 auto;
@@ -139,7 +139,7 @@
   text-decoration: none;
 }
 
-/* Стилі допоміжних елементів(для відступів у помилках) */
+/* Auxiliary element styles (for indenting errors) */
 .helptext {
   display: block;
   margin-top: 5px;

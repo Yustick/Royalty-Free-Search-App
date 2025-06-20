@@ -8,19 +8,24 @@
 <div class="image-gallery">
   {% for image in page_obj %}
   <div class="image-container">
-    <img src="{{ image }}" alt="Image" class="image-item" />
+    <img
+      src="{{ image.url }}"
+      alt="Image"
+      class="image-item"
+      data-url="{{ image.url }}"
+      data-author="{{ image.author }}"
+      data-source="{{ image.source }}"
+    />
     <div class="image-actions">
-      <!-- Download -->
       <form method="post" action="{% url 'download_image' %}">
         {% csrf_token %}
-        <input type="hidden" name="image_url" value="{{ image }}" />
+        <input type="hidden" name="image_url" value="{{ image.url }}" />
         <input type="hidden" name="search_query" value="{{ search_query }}" />
         <button type="submit" class="action-button">⬇ Download</button>
       </form>
-      <!-- Save image to gallery -->
       <form method="post" action="{% url 'save_image_to_gallery' %}">
         {% csrf_token %}
-        <input type="hidden" name="image_url" value="{{ image }}" />
+        <input type="hidden" name="image_url" value="{{ image.url }}" />
         <input type="hidden" name="search_query" value="{{ search_query }}" />
         <button type="submit" class="action-button">💾 Save</button>
       </form>
@@ -57,4 +62,14 @@
     {% endif %}
   </span>
 </div>
-{% endif %} {% endblock %}
+{% endif %}
+
+<!-- Modal -->
+<div id="imageModal" class="modal">
+  <span id="closeModal" class="close">&times;</span>
+  <img class="modal-content" id="modalImage" />
+  <div id="modalCaption" class="caption"></div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}

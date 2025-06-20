@@ -15,20 +15,20 @@
       <img
         src="{{ image.image_url }}"
         class="image-item"
-        alt="Image {{ forloop.counter }}"
+        alt="Saved image"
+        data-url="{{ image.image_url }}"
+        data-author="{{ image.name }}"
+        data-source="{{ image.source }}"
       />
       <div class="image-actions">
-        <!-- Download -->
         <form action="{% url 'download_saved_image' image.id %}" method="post">
           {% csrf_token %}
           <button type="submit" class="action-button">⬇️ Download</button>
         </form>
-        <!-- Delete -->
         <form action="{% url 'delete_saved_image' image.id %}" method="post">
           {% csrf_token %}
           <button type="submit" class="action-button">❌ Delete</button>
         </form>
-        <!-- Edit -->
         <a href="{% url 'edit_image_view' image.id %}" class="action-button"
           >✏️ Edit</a
         >
@@ -36,8 +36,6 @@
     </div>
     {% endfor %}
   </div>
-
-  <!-- Пагінація -->
   <div class="pagination">
     <span class="page-links">
       {% if page_obj.has_previous %}
@@ -59,4 +57,14 @@
   </div>
   {% endif %}
 </div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal">
+  <span id="closeModal" class="close">&times;</span>
+  <img class="modal-content" id="modalImage" />
+  <div id="modalCaption" class="caption"></div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script src="{% static 'js/modal.js' %}"></script>
 {% endblock %}

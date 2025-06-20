@@ -127,6 +127,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Handling the error "Saving photos to the gallery without logging in"
+LOGIN_URL = '/RoyaltyFreeSearchApp/login/'
+LOGIN_REDIRECT_URL = '/'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'apps/gallery/media')
 

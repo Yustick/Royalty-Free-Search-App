@@ -1,4 +1,12 @@
-/* Стилі для home.html */
+/* Background style */
+main,
+search-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Styles for home.html */
 .search-section {
   flex-grow: 1;
   background-size: cover;
@@ -12,34 +20,29 @@
 
 .search-inner {
   padding: 120px 0;
-  max-width: 1000px; /* Збільшено максимальну ширину */
+  max-width: 1000px;
   width: 100%;
 }
 
 .search-inner h2 {
   font-size: 40px;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Тінь для підвищення контрасту */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .search-inner form {
   display: inline-block;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.6
-  ); /* Замість білого використовуємо ніжний кремовий відтінок */
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 12px;
-  border-radius: 8px; /* Трохи округлені кути */
+  border-radius: 8px;
   width: 77%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легке затемнення для кращої видимості */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-inner input[type="text"] {
-  padding: 12px 15px; /* Збільшено внутрішні відступи */
-  width: 100%; /* Забезпечуємо, щоб поле займало всю доступну ширину */
-  max-width: 600px; /* Максимальна ширина поля для введення */
+  padding: 12px 15px;
+  width: 100%;
+  max-width: 600px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
@@ -47,24 +50,24 @@
 }
 
 .search-inner button {
-  padding: 12px 25px; /* Збільшені внутрішні відступи */
-  background-color: #ff9900; /* Яскравий помаранчевий, щоб виділятися */
+  padding: 12px 25px;
+  background-color: #ff9900;
   border: none;
   border-radius: 5px;
   color: white;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легкий ефект тіні для "підняття" кнопки */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .search-inner button:hover {
-  background-color: #e68a00; /* Трохи темніший помаранчевий при наведенні */
-  transform: scale(1.05); /* Ефект збільшення кнопки при наведенні */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Інтенсивніша тінь */
+  background-color: #e68a00;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Стилі для categories.html */
+/* Styles for categories.html */
 .categories-header {
   display: flex;
   justify-content: center;
@@ -129,7 +132,7 @@
   background-color: #ff9900;
 }
 
-/* Стилі для about.html */
+/* Styles for about.html */
 .site-info {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 1.5em;
@@ -139,7 +142,6 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Заголовок */
 .site-info h2 {
   text-align: center;
   font-size: 2em;
@@ -148,15 +150,13 @@
   font-weight: 600;
 }
 
-/* Нові стилі для абзаців у .site-info */
 .site-info p {
   font-size: 1.2em;
   line-height: 1.6;
   color: #444;
-  margin-bottom: 0.5em; /* Зменшено відступ між абзацом і списком */
+  margin-bottom: 0.5em;
 }
 
-/* Стилі списку функціоналу */
 .site-info ul {
   font-size: 1.2em;
   line-height: 1.6;
@@ -172,4 +172,41 @@
 
 .site-info ul li:last-child {
   margin-bottom: 0;
+}
+
+/* Image buttons */
+.image-credit {
+  font-size: 0.8rem;
+  color: #ffffffcc;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.image-actions-fixed {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.image-actions-fixed form {
+  display: inline;
+}
+
+.image-actions-fixed .action-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+  text-shadow: 0 0 2px black;
+}
+
+.image-actions-fixed .action-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
