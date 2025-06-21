@@ -26,7 +26,6 @@ def categories_view(request):
 
 
 def about_view(request):
-    # Припустимо, search_images повертає список словників із ключами url, author, source
     images = search_images(SERVICE_API_NAME)
     background = images[0] if images else None
 
